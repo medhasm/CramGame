@@ -28,12 +28,20 @@ public class GUI extends JFrame {
     JButton button2;
     JButton button3;
     Font font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,18);
-	       MouseListener mouse=new MouseListener() {
+    JFrame frame;
+    
+	 MouseListener mouse=new MouseListener() {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+			if(e.getComponent() instanceof JButton) {
+				JButton demo= (JButton) e.getComponent();
+				if(demo == button1) { //
+				PVP nframe=new PVP();
+				frame.setVisible(false);
+				}
+			}
 		}
 
 		@Override
@@ -74,7 +82,7 @@ public class GUI extends JFrame {
     	   	   
        };
 	  public GUI(){
-        JFrame frame = new JFrame("Cram Game");
+        frame = new JFrame("Cram Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(701,526);
         frame.setLayout(null);
