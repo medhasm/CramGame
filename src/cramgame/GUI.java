@@ -87,9 +87,9 @@ public class GUI extends JFrame {
         frame.setSize(701,526);
         frame.setLayout(null);
         
-   button1 = new JButton("Play With Computer");
+   button1 = new JButton("Play With Friend");
     
-   button2 = new JButton("Play With Friend");
+   button2 = new JButton("Play With Computer");
    button3 = new JButton("Whats Is Cram?");
        
        button1.setSize(230,40);
@@ -144,6 +144,7 @@ public class GUI extends JFrame {
        frame.setVisible(true);
 	
 	}
+
 	 public static void main(String[] args)
 	 {
 
