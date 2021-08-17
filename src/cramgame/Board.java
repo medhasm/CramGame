@@ -3,6 +3,8 @@ package cramgame;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import com.sun.org.apache.xerces.internal.util.ShadowedSymbolTable;
+
 enum Player {
 	PLAYERONE , PLAYERTWO , EMPTY}
 
@@ -23,6 +25,7 @@ public class Board {
 	}
 		
 		public boolean setBoard(Player Playerindex,int RowIndex,int ColIndex) {
+		    System.out.println("ROW:"+RowIndex+" COL:"+ColIndex);
 			 if( Board.get(RowIndex).get(ColIndex) != Player.EMPTY) return false; 
 			switch ( Playerindex) {
 			
@@ -44,7 +47,14 @@ public class Board {
 			return false;
 		}
 				
+			public void remove(int row,int col) {
 				
+				Board.get(row).set(col, Player.EMPTY);
+				
+				
+				
+				
+			}
 			public Vector<Vector<Player>> getBoard(){
 				
 			return Board;

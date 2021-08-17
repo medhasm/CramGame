@@ -49,7 +49,7 @@ public class PVP extends JPanel implements MouseListener {
      	   background=new JLabel(getbackground());   	   
      	   background.setSize(800, 600);
      	   background.setName("backgrount");
-     	    jb=new JLabel("Cant place this peace her,this place has been already been taken.");
+     	    jb=new JLabel("Cant place this peace her");//,this place has been already been taken.
      	    jb.setLocation(80, 210);
      	    jb.setName("MyLabel");
      	    jb.setSize(0, 0);
@@ -100,16 +100,7 @@ public class PVP extends JPanel implements MouseListener {
 			
 		}
 	}
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		for(JButton but:buttons) {
-        //  g.draw
-			
-		}
-		
-		
-	}
+	
 	public ImageIcon getbackground() {
 		ImageIcon img;
 		try {
@@ -249,6 +240,10 @@ public class PVP extends JPanel implements MouseListener {
 		}
 			
 	}
+		if(g.checkend()) {
+			JOptionPane cong=new JOptionPane("Congratulations");
+			cong.showMessageDialog(frame, g.getWinner()+" congratulations for winning");
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
