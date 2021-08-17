@@ -78,7 +78,7 @@ public class game {
 		 if(board.get(i).get(0) == Player.EMPTY) counter++;
 		 if(board.get(i).get(1) == Player.EMPTY) counter++;
 		 if(board.get(i + 1).get(0) == Player.EMPTY) counter++;	
-		 System.out.println(i + 1);
+		 //System.out.println(i + 1);
 		 if(board.get(i + 1).get(1) == Player.EMPTY) counter++;
 		 if(counter == 4 || counter == 3) return false;
 		 counter = 0;
@@ -145,7 +145,7 @@ public class game {
 		 
 	 }else {
 		 holder.add(r);
-		 System.out.println("Size"+ holder.size()) ;
+		// System.out.println("Size"+ holder.size()) ;
 		 for(int i= 0 ;i < holder.size()  ; i++) {
 			 
 			 int k= Math.abs(holder.get(i) - holder.get((i+1)%3));
