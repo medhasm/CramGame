@@ -14,6 +14,7 @@ public class game {
  int Stepcounter;
  Player Winner;
  ArrayList<Integer> holder=new ArrayList<Integer>();
+ ArrayList<Integer> hold=new ArrayList<Integer>();
  
  public game(int Row,boolean Robotmode) {
 	 this.RobotMode=Robotmode;
