@@ -35,7 +35,7 @@ public class cram {
 		int k=i-2;
 		for(int j=0 ;j<=i-2;j++)
 		{
-			Set.add(A.get(j)^B.get(k));
+			Set.add(A.get(j)^B.get(k));//L
 			k--;
 		}
 		A.add(calculateMex(Set));
@@ -47,9 +47,9 @@ public class cram {
 		int k=i-2;
 		for(int j=0 ;j<=i-2;j++)
 		{
-			Set.add(B.get(j)^B.get(k));
-			Set.add(A.get(j)^C.get(k));
-			Set.add(A.get(j)^D.get(k));
+			Set.add(B.get(j)^B.get(k)); //rotate L 90
+			Set.add(A.get(j)^C.get(k)); //  rotate L 280 left 
+			Set.add(A.get(j)^D.get(k)); // L
 		}
 		B.add(calculateMex(Set));
 //		System.out.println("B--->" +calculateMex(Set));
@@ -63,6 +63,7 @@ public class cram {
 		for(int j=0 ;j<=i-2;j++)
 		{
 			Set.add(B.get(j)^D.get(k));
+			//k--;
 		}
 		C.add(calculateMex(Set));
 //		System.out.println("C--->" +calculateMex(Set));
@@ -76,6 +77,7 @@ public class cram {
 		{
 			Set.add(B.get(j)^C.get(k));
 			Set.add(D.get(j)^B.get(k));
+			//k--;
 		}
 		D.add(calculateMex(Set));
 //		System.out.println("D--->" +calculateMex(Set));
