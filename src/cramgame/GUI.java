@@ -121,7 +121,7 @@ public class GUI extends JFrame {
               
        try {
     	
-    	   ImageIcon img=new ImageIcon(ImageIO.read(new File("background2.jpg")));
+    	   ImageIcon img=new ImageIcon(ImageIO.read(new File("background2.jpg")));//
     	  JLabel background=new JLabel(img);
     	 
     	   
