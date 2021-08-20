@@ -24,14 +24,14 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Point;
 
-public class PVP extends JPanel implements MouseListener {
+public class PVC extends JPanel implements MouseListener {
 	game g;
 	JLabel jb;
 	JLabel background;
      private JButton Reset;
 	Vector<JButton> buttons=new Vector<JButton>();
 	JFrame frame = new JFrame();
-	public PVP() {
+	public PVC() {
 		 frame = new JFrame();
 				frame.setSize(800, 600);
 				frame.setTitle("Cram Game");
@@ -60,7 +60,21 @@ public class PVP extends JPanel implements MouseListener {
      	   this.add(jb);
      	   this.Reset.addMouseListener(this);
      	   getRows(rows);
-            this.add(background); 		
+            this.add(background); 
+            g.RobotMove(g.getTurn());
+    		for(int i = 0; i<g.b.getBoard().size();i++) {
+    			for (int j=0 ; j<g.b.getBoard().get(i).size();j++ ) {
+    				if(g.b.getBoard().get(i).get(j) == Player.PLAYERONE) {
+    				for(JButton ss : buttons ) {
+    					
+    				if(Integer.parseInt(ss.getName())	== 2*i + j +1) {
+    					System.out.println("true");
+    					ss.setIcon(getfirst());
+    				}
+    				}  
+    				}
+    			}
+    		}
    		 this.repaint();
    		 this.revalidate();
           frame.getContentPane().add(this);
@@ -70,7 +84,7 @@ public class PVP extends JPanel implements MouseListener {
 	public void getRows(int rows) {
 		//String input =JOptionPane.showInputDialog(this,"Please insert number of Rows (number of rows should be bigger  than 2");
 		int numrow=rows;
-		g=new game(numrow,false);
+		g=new game(numrow,true);
 		int x=(numrow / 2) * 50;
 		int counter=1;
 		for(int i=0; i < numrow ; i++ ) {
@@ -144,12 +158,12 @@ public class PVP extends JPanel implements MouseListener {
 	 public static void main(String[] args)
 	 {
 
-		 new PVP();
+		 new PVC();
 	 }
 	  public void Reset() {  
 		  
 		  frame.setVisible(false);
-		  new PVP();
+		  new PVC();
 		  
 		  
 		  /*
@@ -188,6 +202,7 @@ public class PVP extends JPanel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		
 			JButton demo=(JButton) arg0.getComponent();
 		int row , col;
 		if(demo == this.Reset) {
@@ -195,6 +210,8 @@ public class PVP extends JPanel implements MouseListener {
 			Reset();
 			return;
 		}
+		
+		if( g.getTurn() != Player.PLAYERONE) {
 		if(arg0.getComponent() instanceof JButton) {
 			
 		
@@ -240,6 +257,27 @@ public class PVP extends JPanel implements MouseListener {
 		}
 			
 	}
+		}
+		g.RobotMove(g.getTurn());
+		for(int i = 0; i<g.b.getBoard().size();i++) {
+			for (int j=0 ; j<g.b.getBoard().get(i).size();j++ ) {
+				if(g.b.getBoard().get(i).get(j) == Player.PLAYERONE);
+				for(JButton ss : buttons ) {
+					
+				if(Integer.parseInt(ss.getName())	== 2*i + j +1) {
+					
+					ss.setIcon(getfirst());
+				}
+				}
+					
+				
+			}
+			
+			frame.repaint();
+			frame.revalidate();
+		}
+		
+		
 		if(g.checkend()) {
 			JOptionPane cong=new JOptionPane("Congratulations");
 			cong.showMessageDialog(frame, g.getWinner()+" congratulations for winning");

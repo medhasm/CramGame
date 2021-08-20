@@ -1,6 +1,7 @@
 package cramgame;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Vector;
 import java.lang.Math;
 
@@ -15,6 +16,7 @@ public class game {
  Player Winner;
  ArrayList<Integer> holder=new ArrayList<Integer>();
  ArrayList<Integer> hold=new ArrayList<Integer>();
+ cram cram;
  
  public game(int Row,boolean Robotmode) {
 	 this.RobotMode=Robotmode;
@@ -22,6 +24,7 @@ public class game {
 	 b=new Board(Row);
 	 play=Player.PLAYERONE;
 	 this.Stepcounter=3;
+	 if(Robotmode == true) cram=new cram(Row);
 	 
  }
  public Player getTurn() {
@@ -102,7 +105,52 @@ public class game {
 	 }
 	 return true;
  }
- public void RobotMove() {
+ public void RobotMove(Player Player) {
+	 
+	 Algorithms alg=new Algorithms();
+	 Line line=alg.XORBoard(this.b);
+	  System.out.println(line.getString());
+	 
+	 ArrayList<Integer> arr=new ArrayList<Integer>();
+	
+	 Map<Integer,Map<Integer,ArrayList<Integer>>> kk=cram.getMap().get(line.getString());
+	 if(line.getString() == "A")
+	 arr=kk.get(line.getEnd() - line.getStart() + 1).get(line.getGrundy());
+	 if(line.getString() == "B" || line.getString() == "B2" || line.getString() == "B3" || line.getString() == "B4")
+	 arr=kk.get(line.getEnd() - line.getStart()).get(line.getGrundy());
+	 if(line.getString() == "D" || line.getString() == "D2" )
+	 arr=kk.get(line.getEnd() - line.getStart() - 1).get(line.getGrundy());
+	 if(line.getString() == "C" || line.getString() == "C2" )
+	 arr=kk.get(line.getEnd() - line.getStart() - 1).get(line.getGrundy());
+	 
+	 for(int i : arr) {
+		int c=(i+2*line.getStart());
+		int row,col;
+		int v=c%2;
+		
+		if(v == 1) {
+		 row=(c/2) ;
+		 col=v - 1;
+		}else {
+			row = (c/2) - 1;
+			col = 1;
+			
+		}
+	 if(b.setBoard(Player,row , col))System.out.println("ok");;
+	 }
+	 
+	 switch (Player) {
+	 case PLAYERONE:
+		 play=Player.PLAYERTWO;
+		 break;
+	 case PLAYERTWO:
+      break;
+		 
+	 case EMPTY:
+		 break;
+		 
+	 }
+	 
 	 
  }
  
