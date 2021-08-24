@@ -21,12 +21,14 @@ public class Algorithms {
 		boolean firstcond=(upBBlock == Player.EMPTY)&&(lowBBlock == Player.EMPTY);
 		boolean secondcond=(upEBlock == Player.EMPTY)&&(lowEBlock == Player.EMPTY);
 		if(firstcond && secondcond) {
+			
 			int countempty=0;
 			for(int i=beginRow ; i<=endRow && endRow<stack.size();i++ ) {
 				 upEBlock =stack.get(i).get(0);
 				 lowEBlock =stack.get(i).get(1);	
-				 firstcond=(upBBlock == Player.EMPTY)&&(lowBBlock == Player.EMPTY);
-				 countempty++;
+				 firstcond=(upEBlock == Player.EMPTY)&&(lowEBlock == Player.EMPTY);
+				 
+				 if(firstcond) countempty=countempty+2;
 			}
 			if(countempty == (endRow - beginRow+1)*2) return true;
 			else return false;
@@ -51,18 +53,19 @@ public class Algorithms {
 		boolean flag=(firstcond  &&  (fifthcond || sixthcond))
 				                 ||
 				      (fourcond  &&  (secondcond || thirdcond));
-		
+	
 		if( flag ) {
 			
 			int countempty=0;
 			for(int i=beginRow ; i<=endRow && endRow<stack.size();i++ ) {
 				 upEBlock =stack.get(i).get(0); //upper begining block
 				 lowEBlock =stack.get(i).get(1);	//lowwer begining block
-				 firstcond=(upBBlock == Player.EMPTY)&&(lowBBlock == Player.EMPTY);
-				 if(firstcond) countempty++;
+				 firstcond=(upEBlock == Player.EMPTY)&&(lowEBlock == Player.EMPTY);
+				 if(firstcond) countempty+=2;
 				 
 			}
-			if(countempty == (endRow - beginRow)*2) return true;
+			//System.out.println(countempty +"  :  "+ ((endRow - beginRow)*2));
+			if(countempty == ((endRow - beginRow)*2)) return true;
 			else return false;
 			
 		}else return false;
@@ -87,12 +90,13 @@ public class Algorithms {
 		
 		if( flag ) {
 			
+			
 			int countempty=0;
 			for(int i=beginRow ; i<=endRow && endRow<stack.size();i++ ) {
 				 upEBlock =stack.get(i).get(0); //upper begining block
 				 lowEBlock =stack.get(i).get(1);	//lowwer begining block
-				 firstcond=(upBBlock == Player.EMPTY)&&(lowBBlock == Player.EMPTY);
-				 if(firstcond) countempty++;
+				 firstcond=(upEBlock == Player.EMPTY)&&(lowEBlock == Player.EMPTY);
+				 if(firstcond) countempty+=2;;
 				 
 			}
 			if(countempty == (endRow - beginRow - 1)*2) return true;
@@ -125,8 +129,8 @@ public class Algorithms {
 			for(int i=beginRow ; i<=endRow && endRow<stack.size();i++ ) {
 				 upEBlock =stack.get(i).get(0); //upper begining block
 				 lowEBlock =stack.get(i).get(1);	//lowwer begining block
-				 firstcond=(upBBlock == Player.EMPTY)&&(lowBBlock == Player.EMPTY);
-				 if(firstcond) countempty++;
+				 firstcond=(upEBlock == Player.EMPTY)&&(lowEBlock == Player.EMPTY);
+				 if(firstcond) countempty+=2;;
 				 
 			}
 			if(countempty == (endRow - beginRow - 1)*2) return true;
@@ -152,7 +156,9 @@ public class Algorithms {
 			for(int i : mp.keySet()) {
 				int c=mp.get(i);
 				mk.put(c, cram.calculateA(c-i+1));
-				mapr.put(i, mk);
+				if(mapr.get(i)==null) {
+					mapr.putIfAbsent(i, mk);
+				}else mapr.get(i).put(c, cram.calculateA(c-i+1));
 				
 			}
 			
@@ -164,11 +170,12 @@ public class Algorithms {
 			
 			for(int i : mp.keySet()) {
 				int c=mp.get(i);
-				mk.put(c, cram.calculateB(c-i+1));
-				mapr.put(i, mk);
-				
-			}	
+				mk.put(c, cram.calculateB(c-i));
+				if(mapr.get(i)==null) {
+				mapr.putIfAbsent(i, mk);
+			}	else mapr.get(i).put(c, cram.calculateB(c-i));
 			
+		}
 		}
 		if(map.get("B2")!=null) {
 			Map<Integer,Integer> mp=map.get("B2");
@@ -177,8 +184,10 @@ public class Algorithms {
 			
 			for(int i : mp.keySet()) {
 				int c=mp.get(i);
-				mk.put(c, cram.calculateB2(c-i+1));
-				mapr.put(i, mk);
+				mk.put(c, cram.calculateB2(c-i));
+				if(mapr.get(i)==null) {
+				mapr.putIfAbsent(i, mk);
+			}	else mapr.get(i).put(c, cram.calculateB(c-i));
 				
 			}	
 			
@@ -190,8 +199,10 @@ public class Algorithms {
 			
 			for(int i : mp.keySet()) {
 				int c=mp.get(i);
-				mk.put(c, cram.calculateB3(c-i+1));
-				mapr.put(i, mk);
+				mk.put(c, cram.calculateB3(c-i));
+				if(mapr.get(i)==null) {
+				mapr.putIfAbsent(i, mk);
+			}	else mapr.get(i).put(c, cram.calculateB(c-i));
 				
 			}	
 			
@@ -203,8 +214,10 @@ public class Algorithms {
 			
 			for(int i : mp.keySet()) {
 				int c=mp.get(i);
-				mk.put(c, cram.calculateB4(c-i+1));
-				mapr.put(i, mk);
+				mk.put(c, cram.calculateB4(c-i));
+				if(mapr.get(i)==null) {
+				mapr.putIfAbsent(i, mk);
+			}	else mapr.get(i).put(c, cram.calculateB(c-i));
 				
 			}	
 			
@@ -216,8 +229,10 @@ public class Algorithms {
 			
 			for(int i : mp.keySet()) {
 				int c=mp.get(i);
-				mk.put(c, cram.calculateC(c-i+1));
-				mapr.put(i, mk);
+				mk.put(c, cram.calculateC(c-i-1));
+				if(mapr.get(i)==null) {
+				mapr.putIfAbsent(i, mk);
+			}	else mapr.get(i).put(c, cram.calculateC(c-i-1));
 				
 			}	
 			
@@ -229,8 +244,10 @@ public class Algorithms {
 			
 			for(int i : mp.keySet()) {
 				int c=mp.get(i);
-				mk.put(c, cram.calculateC2(c-i+1));
-				mapr.put(i, mk);
+				mk.put(c, cram.calculateC2(c-i-1));
+				if(mapr.get(i)==null) {
+				mapr.putIfAbsent(i, mk);
+			}	else mapr.get(i).put(c, cram.calculateC(c-i-1));
 				
 			}	
 			
@@ -242,8 +259,10 @@ public class Algorithms {
 			
 			for(int i : mp.keySet()) {
 				int c=mp.get(i);
-				mk.put(c, cram.calculateD(c-i+1));
-				mapr.put(i, mk);
+				mk.put(c, cram.calculateD(c-i-1));
+				if(mapr.get(i)==null) {
+				mapr.putIfAbsent(i, mk);
+			}	else mapr.get(i).put(c, cram.calculateD(c-i-1));
 				
 			}	
 			
@@ -255,8 +274,10 @@ public class Algorithms {
 			
 			for(int i : mp.keySet()) {
 				int c=mp.get(i);
-				mk.put(c, cram.calculateD2(c-i+1));
-				mapr.put(i, mk);
+				mk.put(c, cram.calculateD2(c-i-1));
+				if(mapr.get(i)==null) {
+				mapr.putIfAbsent(i, mk);
+			}	else mapr.get(i).put(c, cram.calculateD(c-i-1));
 				
 			}	
 			
@@ -264,7 +285,8 @@ public class Algorithms {
 		
 		
 		//}
-		
+	System.out.println("from calculator: "+mapr.keySet());	
+	if(mapr.containsKey(3))System.out.println("after calc "+mapr.get(3).get(5));
 		return mapr;
 		
 		
@@ -274,27 +296,57 @@ public class Algorithms {
 	
 	public Map<String,Map<Integer,Integer>> findsubCrams(Board board) {
 		Map<String,Map<Integer,Integer>> map=new HashMap<String,Map<Integer,Integer>>();
+		Map<Integer,Integer> iimp;
 		Vector<Vector<Player>> stack=board.getBoard();
 		Player upBBlock;
 		Player lowBBlock;
 		Player upEBlock ;
 		Player lowEBlock ;
         int startInd,endInd;
+        
 				
 		for(int i=0;i<stack.size();) {
+			
+			///System.out.println("i: "+i);
+			//System.out.println("before");
+			
+			
 			 upBBlock=stack.get(i).get(0);
 			 lowBBlock=stack.get(i).get(1);
 			 startInd=findstrsub(board,i);
+			 if(startInd == -1 ) return map;
+			/// System.out.println("start: "+startInd);
 			 endInd=findendsub(board,startInd);
+			// System.out.println("findsubc"+startInd+ " :  "+endInd);
+			// System.out.println("end: "+endInd);
 			 if(endInd-startInd == 0) {
+				 if(i==(stack.size()-1)) { 
+					 
+					 //System.out.println("her");
+					 return map; 
 				 
+				 
+				 }
 				 i=i+1;
 				 continue;
 			 }
-			 if(checkifA(startInd,endInd,board)) map.get("A").put(startInd,endInd);
-			 
+			  
+			 if(checkifA(startInd,endInd,board)) {
+				
+				// map.p
+				 if(map.get("A") == null) {
+					 Map key=new HashMap<Integer,Integer>();
+					 key.put(startInd,endInd);
+					map.putIfAbsent("A",key );
+				 }else
+				 map.get("A").put(startInd,endInd);
+				 i=endInd+1;
+				// System.out.println("A");
+			 }
+			// System.out.println("yy"+startInd+ " :  "+endInd);
 			 if(checkifB(startInd,endInd,board)) {
-				 
+			 
+
 				 upBBlock=stack.get(startInd).get(0);
 				 lowBBlock=stack.get(startInd).get(1);
 				 upEBlock =stack.get(endInd).get(0);
@@ -305,12 +357,36 @@ public class Algorithms {
 				    boolean secondcond=((upBBlock != Player.EMPTY)&&(lowBBlock == Player.EMPTY));					
 					boolean thirdcond=((upBBlock == Player.EMPTY)&&(lowBBlock != Player.EMPTY));					
 				    boolean fourcond=(upEBlock == Player.EMPTY)&&(lowEBlock == Player.EMPTY);	  
-				    boolean sixcond=((upEBlock == Player.EMPTY)&&(lowEBlock != Player.EMPTY));
+				  boolean sixcond=((upEBlock == Player.EMPTY)&&(lowEBlock != Player.EMPTY));
 				  
-				    if(firstcond&&fifthcond) map.get("B").put(startInd,endInd);
-					if(thirdcond&&fourcond) map.get("B2").put(startInd,endInd);				
-			    	if(secondcond&&fourcond) map.get("B3").put(startInd,endInd);
-					if(firstcond&&sixcond) map.get("B4").put(startInd,endInd);
+				    if(firstcond&&fifthcond) {
+						 if(map.get("B") == null) {
+							 Map key=new HashMap<Integer,Integer>();
+							 key.put(startInd,endInd);
+							map.putIfAbsent("B",key );
+						 }else map.get("B").put(startInd,endInd);}
+					if(thirdcond&&fourcond) {
+						 if(map.get("B2") == null) {
+							 Map key=new HashMap<Integer,Integer>();
+							 key.put(startInd,endInd);
+							map.putIfAbsent("B2",key );
+						 }else
+						 map.get("B2").put(startInd,endInd);}				
+			    	if(secondcond&&fourcond) { 
+						 if(map.get("B3") == null) {
+							 Map key=new HashMap<Integer,Integer>();
+							 key.put(startInd,endInd);
+							map.putIfAbsent("B2",key );
+						 }
+						 else map.get("B3").put(startInd,endInd);}
+					if(firstcond&&sixcond) {
+						 if(map.get("B4") == null) {
+							 Map key=new HashMap<Integer,Integer>();
+							 key.put(startInd,endInd);
+							
+							 map.putIfAbsent("B4",key );
+							 
+						 }else 	map.get("B4").put(startInd,endInd);}
 				 i=endInd + 1;
 				 continue;
 				 
@@ -318,7 +394,7 @@ public class Algorithms {
 			 if(checkifC(startInd,endInd,board))
 			 {
 				 if(endInd - startInd == 1) {
-					 i=endInd;
+					 i=endInd+1;
 					 continue; 
 				 }
 					 upBBlock=stack.get(startInd).get(0);
@@ -329,17 +405,30 @@ public class Algorithms {
 						boolean secondcond=((upEBlock != Player.EMPTY)&&(lowEBlock == Player.EMPTY));
                         boolean thirdcond=((upBBlock == Player.EMPTY)&&(lowBBlock != Player.EMPTY));
 						boolean fourcond=((upEBlock == Player.EMPTY)&&(lowEBlock != Player.EMPTY));
-				 if(firstcond&&secondcond) 
-					 map.get("C").put(startInd,endInd);
-				 if(thirdcond&&fourcond)
-					 map.get("C2").put(startInd,endInd);
-					 	 
+				 if(firstcond&&secondcond) {				
+					 if(map.get("C") == null) {
+					 Map key=new HashMap<Integer,Integer>();
+					 key.put(startInd,endInd);
+					map.putIfAbsent("C",key );
+				 }else map.get("C").put(startInd,endInd);
+					 }
+					 
+				 if(thirdcond&&fourcond)	{	
+					 if(map.get("C2") == null) {
+					 Map key=new HashMap<Integer,Integer>();
+				     key.put(startInd,endInd);
+				   map.putIfAbsent("C2",key );
+			 }else map.get("C2").put(startInd,endInd);
+				 }
+					
+				 i=endInd+1;
+				 continue;
 				 
 			 }
 			 if(checkifD(startInd,endInd,board)) {
 				 
 				 if(endInd - startInd == 1) {
-					 i=endInd;
+					 i=endInd+1;
 					 continue; 
 				 }
 				 upBBlock=stack.get(startInd).get(0);
@@ -351,15 +440,32 @@ public class Algorithms {
 					
 					boolean secondcond=((upBBlock != Player.EMPTY)&&(lowBBlock == Player.EMPTY));
 					boolean thirdcond=((upEBlock == Player.EMPTY)&&(lowEBlock != Player.EMPTY));
-				 if(firstcond&&fourcond) map.get("D").put(startInd,endInd);
-				 if(secondcond&&thirdcond) map.get("D2").put(startInd,endInd);
+				 if(firstcond&&fourcond)
+					 {		
+					 if(map.get("D") == null) {
+					 
+					 Map key=new HashMap<Integer,Integer>();
+					 key.put(startInd,endInd);
+					map.putIfAbsent("D",key );
+				 }else map.get("D").put(startInd,endInd);
+					 }
+				 if(secondcond&&thirdcond) {
+					 
+					 if(map.get("D2") == null) {
+						 
+					 Map key=new HashMap<Integer,Integer>();
+					 key.put(startInd,endInd);
+					map.putIfAbsent("D2",key );
+				 }else map.get("D2").put(startInd,endInd);
+				 }
+				 
 				 i=endInd + 1;
 				 continue;
 				 
 			 }
 			 i=endInd +1 ;
 		}
-		
+		System.out.println(map.keySet());
 		return map;
 	}
 	
@@ -368,30 +474,35 @@ public class Algorithms {
 		Player upBBlock;
 		Player lowBBlock;
 		boolean cond;
-		
+		if(row==(stack.size()- 1)) return -1;
 		for(int i=row; i<stack.size() ; i++) {
 			
 			 upBBlock=stack.get(i).get(0);
 			 lowBBlock=stack.get(i).get(1);	
 			 cond = ((upBBlock != Player.EMPTY)&&(lowBBlock != Player.EMPTY));
 			 if(cond) continue;
+			// System.out.println(i);
 			 return i;
+			 
 		}
-		return 0;
+		return -1;
 	}
 	
 	public int findendsub(Board board,int row) {
 		Vector<Vector<Player>> stack=board.getBoard();
 		Player upBBlock;
 		Player lowBBlock;
-		boolean cond;
+		boolean cond,cond2;
 		if(row == (stack.size()-1)) return row;
 		for(int i=row+1; i<stack.size() ; i++) {
 			if(i == (stack.size()-1)) return i;
 			 upBBlock=stack.get(i).get(0);
 			 lowBBlock=stack.get(i).get(1);	
-			 cond = ((upBBlock != Player.EMPTY)&&(lowBBlock != Player.EMPTY));
-			 if(cond)return i-1;
+			 cond = ((upBBlock == Player.EMPTY)&&(lowBBlock == Player.EMPTY));
+			 cond2 = ((upBBlock != Player.EMPTY)&&(lowBBlock != Player.EMPTY));
+			 if(cond2) return i-1;
+			 if(!cond) return i;
+			 
 			 
 		}
 		return 0;
@@ -400,6 +511,7 @@ public class Algorithms {
 	
 	public Line XORBoard(Board board) {
 		Map<String,Map<Integer,Integer>> map=findsubCrams(board);
+		//System.out.println(map.containsKey("A") );
 		Map<Integer,Map<Integer,Set<Integer>>> mapr=this.calculator(board);
 		Line RandomLine = null;
 		int counter=0;
@@ -407,39 +519,45 @@ public class Algorithms {
 		int ends;
 		int calc=0;
 		int calc2=0;
-		boolean A=false;
-		boolean B=false;
-		boolean C=false;
-		boolean D=false;
-		
+
+		//System.out.println("mapkey"+map.keySet());
 		for(String s: map.keySet()) {	
-			if( s == "A") A=true;
-			if( s == "B" ||  s == "B2" ||  s =="B3" ||  s =="B4") B=true;
-			if( s == "C" ||  s == "C2") C=true;
-			if( s == "D" ||  s == "D2") D=true;
+			
+			//if( s == "A") A=true;
+		//	if( s == "B" ||  s == "B2" ||  s =="B3" ||  s =="B4") B=true;
+		//	if( s == "C" ||  s == "C2") C=true;
+		//	if( s == "D" ||  s == "D2") D=true;
         for(int i : map.get(s).keySet()){
-        	
+       // 	System.out.println("mapkeyyy"+map.get(s).keySet());
         	end=map.get(s).get(i);	
         	Set<Integer> set=mapr.get(i).get(end);
+        	//if(set == null) System.out.println("Yes");
         	if(counter == 0) RandomLine=new Line(s,i,end,(int)set.toArray()[0],false);
         	    for(String k : map.keySet()) {	
-        	    	for(int z : map.get(s).keySet()){
-        	    		  if(z != i ) {
-        	    			  ends=map.get(k).get(z);
-        	    				if( k == "A") calc2=calc2^cram.A.get( ends-z +1);
-        	    				if( k == "B" ||  k == "B2" ||  k =="B3" ||  k =="B4") calc2=calc2^cram.B.get( ends-z +1);
-        	    				if( k == "C" ||  k == "C2") calc2=calc2^cram.C.get( ends-z +1);
-        	    				if( k == "D" ||  k == "D2") calc2=calc2^cram.D.get( ends-z +1);  
+        	    	for(int z : map.get(k).keySet()){
+        	    		if(z != i ) {
+        	    		// System.out.println(z+" :: "+k);	
+        	    	   ends=map.get(k).get(z);
+        	    	  
+if( k == "A") calc2=calc2^cram.A.get( ends-z +1);
+if( k == "B" ||  k == "B2" ||  k =="B3" ||  k =="B4") calc2=calc2^cram.B.get( ends-z );
+if( k == "C" ||  k == "C2") calc2=calc2^cram.C.get( ends-z -1);
+if( k == "D" ||  k == "D2") calc2=calc2^cram.D.get( ends-z -1);  
         	    		  }	} }
         	    for (int cc : set) {
+        	    	
+        	    	
         	    calc=cc;    
         	    if( (calc^calc2) == 0) {
+        	    	System.out.println("grundy:"+cc);
+        	    	System.out.println("shape: "+s+"start: "+i+"end: "+end);
         	    Line line=new Line(s,i,end,cc,true);
+        	   // System.out.println("her");
         	    return line;
         	    }}}  			
 		}
 		
-		
+		//System.out.println("her");
 		return RandomLine;
 	}
 	

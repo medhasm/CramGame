@@ -14,6 +14,7 @@ public class game {
  Player play;
  int Stepcounter;
  Player Winner;
+ boolean winnerflag=false;
  ArrayList<Integer> holder=new ArrayList<Integer>();
  ArrayList<Integer> hold=new ArrayList<Integer>();
  cram cram;
@@ -57,15 +58,23 @@ public class game {
 	 case PLAYERONE:
 		 play=Player.PLAYERTWO;
 		 Stepcounter=3;
-		 return flag;
+		 
 	 case PLAYERTWO:
 		 play=Player.PLAYERONE;
 		 Stepcounter=3;
-		 return flag;
+		 
 		 
 	 case EMPTY:
 		 break;
 		 
+	 }
+	 if(checkend()) return flag;
+	 if(this.RobotMode) {
+		 
+		 if(this.getTurn()==Player.PLAYERONE) {
+			// System.out.println("alpha");
+			 this.RobotMove(this.getTurn());
+		 }
 	 }
 	}
 	 return flag;
@@ -76,6 +85,8 @@ public class game {
 	 Vector<Vector<Player>> board=b.getBoard();
 	 ArrayList<Integer> holder=new ArrayList<Integer>();
 	 int counter=0;
+	 if(this.winnerflag) return true;
+	 
 	 for(int i=0 ; i < board.size() - 1 ; i++) {
 		 if(this.Stepcounter == 3) {
 		 if(board.size() < 2) return false; //have to throw exception
@@ -94,9 +105,11 @@ public class game {
 	 
 	 switch(getTurn()) {
 	 case PLAYERONE:
+		 this.winnerflag=true;
 		 this.Winner=Player.PLAYERTWO;
 		 break;
 	 case PLAYERTWO:
+		 this.winnerflag=true;
 		 this.Winner=Player.PLAYERONE;
 		 break;
 	 case EMPTY:
@@ -106,23 +119,37 @@ public class game {
 	 return true;
  }
  public void RobotMove(Player Player) {
-	 
+	 if(this.winnerflag) return;
 	 Algorithms alg=new Algorithms();
 	 Line line=alg.XORBoard(this.b);
-	  System.out.println(line.getString());
+	 
+	 // System.out.println(line.getString());
 	 
 	 ArrayList<Integer> arr=new ArrayList<Integer>();
-	
+	 
+	//System.out.println(line.getString());
 	 Map<Integer,Map<Integer,ArrayList<Integer>>> kk=cram.getMap().get(line.getString());
-	 if(line.getString() == "A")
-	 arr=kk.get(line.getEnd() - line.getStart() + 1).get(line.getGrundy());
-	 if(line.getString() == "B" || line.getString() == "B2" || line.getString() == "B3" || line.getString() == "B4")
-	 arr=kk.get(line.getEnd() - line.getStart()).get(line.getGrundy());
-	 if(line.getString() == "D" || line.getString() == "D2" )
-	 arr=kk.get(line.getEnd() - line.getStart() - 1).get(line.getGrundy());
+	 
+	 if(line.getString() == "A") {
+		//System.out.println("value:" + kk.containsKey(line.getEnd() - line.getStart() + 1) );
+	 arr=kk.get(line.getEnd() - line.getStart() + 1).get(line.getGrundy());}
+	 if(line.getString() == "B" || line.getString() == "B2" ||
+			 line.getString() == "B3" || line.getString() == "B4") {
+		 
+		 
+	arr=kk.get(line.getEnd() - line.getStart()).get(line.getGrundy());	 
+	 }
+	 
+	 if(line.getString() == "D" || line.getString() == "D2" ) {
+		
+	 arr=(ArrayList<Integer>) cram.map.get(line.getString()).get(line.getEnd() - line.getStart() - 1).get(line.getGrundy());
+	 
+	 }
 	 if(line.getString() == "C" || line.getString() == "C2" )
 	 arr=kk.get(line.getEnd() - line.getStart() - 1).get(line.getGrundy());
 	 
+     System.out.println(cram.getMap().get(line.getString()));
+	 if(arr == null)System.out.println("yess");
 	 for(int i : arr) {
 		int c=(i+2*line.getStart());
 		int row,col;
@@ -136,7 +163,7 @@ public class game {
 			col = 1;
 			
 		}
-	 if(b.setBoard(Player,row , col))System.out.println("ok");;
+	 if(b.setBoard(Player,row , col));  // System.out.println("ok");
 	 }
 	 
 	 switch (Player) {

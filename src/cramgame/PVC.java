@@ -61,14 +61,17 @@ public class PVC extends JPanel implements MouseListener {
      	   this.Reset.addMouseListener(this);
      	   getRows(rows);
             this.add(background); 
+            //System.out.println("check");
             g.RobotMove(g.getTurn());
+           // System.out.println("check22");
     		for(int i = 0; i<g.b.getBoard().size();i++) {
     			for (int j=0 ; j<g.b.getBoard().get(i).size();j++ ) {
     				if(g.b.getBoard().get(i).get(j) == Player.PLAYERONE) {
     				for(JButton ss : buttons ) {
     					
     				if(Integer.parseInt(ss.getName())	== 2*i + j +1) {
-    					System.out.println("true");
+    				//10
+    					//System.out.println("true");
     					ss.setIcon(getfirst());
     				}
     				}  
@@ -100,6 +103,8 @@ public class PVC extends JPanel implements MouseListener {
 			j.setBounds(350-x, 100, 50, 50);
 			k.setBounds(350-x, 150, 50, 50);
 			x=x-50;
+			j.setIcon(getRandom());
+			k.setIcon(getRandom());
 			this.add(j);
 			this.add(k);
 
@@ -131,6 +136,19 @@ public class PVC extends JPanel implements MouseListener {
 		 ImageIcon img;
 		try {
 			img = new ImageIcon(ImageIO.read(new File("edited1.png")));
+			return img;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 return null;
+		
+		
+	}
+	public  ImageIcon getRandom() {
+		 ImageIcon img;
+		try {
+			img = new ImageIcon(ImageIO.read(new File("edited5.jpg")));
 			return img;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -240,16 +258,14 @@ public class PVC extends JPanel implements MouseListener {
 				
 				
 		
-			if(turn == Player.PLAYERONE) {
+			if(turn == Player.PLAYERTWO) {
 				
-			demo.setIcon(getfirst());
+			demo.setIcon(getsecond());
 			frame.revalidate();
 			frame.repaint();
 			
 			
-		}else {
-			
-			demo.setIcon(getsecond());
+		}
 
 			frame.repaint();
 			frame.revalidate();
@@ -257,18 +273,21 @@ public class PVC extends JPanel implements MouseListener {
 		}
 			
 	}
-		}
-		g.RobotMove(g.getTurn());
+		
+		//g.RobotMove(g.getTurn());
+		//*
+		
 		for(int i = 0; i<g.b.getBoard().size();i++) {
 			for (int j=0 ; j<g.b.getBoard().get(i).size();j++ ) {
-				if(g.b.getBoard().get(i).get(j) == Player.PLAYERONE);
+				if(g.b.getBoard().get(i).get(j) == Player.PLAYERONE) {
 				for(JButton ss : buttons ) {
 					
-				if(Integer.parseInt(ss.getName())	== 2*i + j +1) {
-					
+				if(Integer.parseInt(ss.getName()) == (2*i + j +1)) {
+					//System.out.println(ss.getName() +"   "+ (2*i + j +1));
 					ss.setIcon(getfirst());
 				}
 				}
+			}
 					
 				
 			}
@@ -276,6 +295,7 @@ public class PVC extends JPanel implements MouseListener {
 			frame.repaint();
 			frame.revalidate();
 		}
+		//*/
 		
 		
 		if(g.checkend()) {

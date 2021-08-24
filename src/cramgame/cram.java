@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 public class cram {
 	
 	static	ArrayList<Integer> A =new ArrayList<Integer>();
@@ -19,13 +21,13 @@ public class cram {
 	static Map mapD=new HashMap<Integer,ArrayList<Integer>>();
 	
 	public cram(int row) {
-		
+	
 		this.calculate(row);
 		
 	}
 	
    public Map<String,Map<Integer,Map<Integer,ArrayList<Integer>>>> getMap(){
-	   
+	    System.out.println(map);
 	   return this.map;
    }
 	public static int calculate(int n) {
@@ -37,7 +39,8 @@ public class cram {
 		
 
 		for(int i=1;i <= n;i++) {
-			calculateA(i);
+			if(i!=1) calculateA(i);
+			
 			calculateB(i);
 			calculateB2(i);
 			calculateB3(i);
@@ -63,6 +66,7 @@ public class cram {
 		{
 			
 			Set.add(A.get(j)^B.get(k));//L
+			//if(i==2) System.out.println("xor" + (A.get(j)^B.get(k)));
 			arr=new ArrayList<Integer>();
 			arr.add(2*j+1);
 			arr.add(2*j+2);
@@ -73,9 +77,11 @@ public class cram {
 			
 			k--;
 		}
-		
+		//System.out.println("mapA: "+mapA.keySet() +"  i:"+i);
 		mp.put(i, mapA);
-		map.put("A", mp);
+		if(map.get("A") ==null) map.putIfAbsent("A", mp);
+		else	map.get("A").put(i, mapA);
+		//map.put("A", mp);
 		mapA=new HashMap<Integer,ArrayList<Integer>>();
 		A.add(calculateMex(Set));
 		return Set;
@@ -120,9 +126,11 @@ public class cram {
 		
 		B.add(calculateMex(Set));
 //		System.out.println("B--->" +calculateMex(Set));
-			
 			mp.put(i, mapB);
-			map.put("B", mp);
+			//map.put("B", mp);
+		if(map.get("B") ==null) map.putIfAbsent("B", mp);
+		else	map.get("B").put(i, mapB);
+		
 			mapB=new HashMap<Integer,ArrayList<Integer>>();
 			return Set;
 		
@@ -166,9 +174,9 @@ public class cram {
 		
 		B.add(calculateMex(Set));
 //		System.out.println("B--->" +calculateMex(Set));
-			
-			mp.put(i, mapB);
-			map.put("B2", mp);
+		mp.put(i, mapB);
+		if(map.get("B2") ==null) map.putIfAbsent("B2", mp);
+		else	map.get("B2").put(i, mapB);
 			mapB=new HashMap<Integer,ArrayList<Integer>>();
 			return Set;
 		
@@ -212,9 +220,9 @@ public class cram {
 		
 		B.add(calculateMex(Set));
 //		System.out.println("B--->" +calculateMex(Set));
-			
-			mp.put(i, mapB);
-			map.put("B3", mp);
+		mp.put(i, mapB);
+		if(map.get("B3") ==null) map.putIfAbsent("B3", mp);
+		else	map.get("B3").put(i, mapB);
 			mapB=new HashMap<Integer,ArrayList<Integer>>();
 			return Set;
 		
@@ -224,6 +232,7 @@ public class cram {
 		Map<Integer,Map<Integer,ArrayList<Integer>>> mp=
 				new HashMap<Integer,Map<Integer,ArrayList<Integer>>>();
 		ArrayList<Integer> arr=new ArrayList<Integer>();
+		
 		int k=i-2;
 		Set.add(A.get(i-1));
 		arr.add(2*(k+1)+1);
@@ -258,9 +267,10 @@ public class cram {
 		
 		B.add(calculateMex(Set));
 //		System.out.println("B--->" +calculateMex(Set));
+		mp.put(i, mapB);
 			
-			mp.put(i, mapB);
-			map.put("B4", mp);
+		if(map.get("B4") ==null) map.putIfAbsent("B4", mp);
+		else	map.get("B4").put(i, mapB);
 			mapB=new HashMap<Integer,ArrayList<Integer>>();
 			return Set;
 		
@@ -294,7 +304,8 @@ public class cram {
 			k--;
 		}
 		mp.put(i, mapC);
-		map.put("C", mp);
+		if(map.get("C") ==null) map.putIfAbsent("C", mp);
+		else	map.get("C").put(i, mapC);
 		mapB=new HashMap<Integer,ArrayList<Integer>>();
 		C.add(calculateMex(Set));
 		return Set;
@@ -331,7 +342,8 @@ public class cram {
 			k--;
 		}
 		mp.put(i, mapC);
-		map.put("C2", mp);
+		if(map.get("C2") ==null) map.putIfAbsent("C2", mp);
+		else	map.get("C2").put(i, mapC);
 		mapB=new HashMap<Integer,ArrayList<Integer>>();
 		C.add(calculateMex(Set));
 		return Set;
@@ -369,7 +381,9 @@ public class cram {
 			k--;
 		}
 		mp.put(i, mapD);
-		map.put("D", mp);
+		
+		if(map.get("D") ==null) map.putIfAbsent("D", mp);
+		else	map.get("D").put(i, mapD);
 		mapD=new HashMap<Integer,ArrayList<Integer>>();
 		D.add(calculateMex(Set));
 		return Set;
@@ -381,10 +395,16 @@ public class cram {
 		ArrayList<Integer> arr=new ArrayList<Integer>();
 		Map<Integer,Map<Integer,ArrayList<Integer>>> mp=
 				new HashMap<Integer,Map<Integer,ArrayList<Integer>>>();
+		//if(i==1) {
+			
+			
+			
+		//}
 		Set.add(B.get(i-1));
 		arr.add(2);
 		arr.add(3);
 		arr.add(4);
+	//	System.out.println("grundy"+B.get(i-1));
 		mapD.put(B.get(i-1), arr);
 		int k=i-2;
 		for(int j=0 ;j<=i-2;j++)
@@ -404,8 +424,14 @@ public class cram {
 			mapD.put(D.get(j)^B.get(k), arr);
 			k--;
 		}
+
+
+		
 		mp.put(i, mapD);
-		map.put("D1", mp);
+		if(map.get("D2") ==null) map.putIfAbsent("D2", mp);
+		else	map.get("D2").put(i, mapD);
+		
+
 		mapD=new HashMap<Integer,ArrayList<Integer>>();
 		D.add(calculateMex(Set));
 		return Set;
@@ -429,6 +455,9 @@ public class cram {
 	   
  public static void main(String[] args)
  {
+	cram cram=new cram(10);
+	Map<String,Map<Integer,Map<Integer,ArrayList<Integer>>>>cc=cram.getMap();
+	//System.out.println(cc.get("A").keySet().toString());
 	 //
 	 //System.out.println(calculate(50));
 	 //print(A);
@@ -437,7 +466,9 @@ public class cram {
 	// print(D);
 //	 cram cram=new cram();
 	 
-	 cram.calculate(12);
-	 System.out.println(cram.A.get(3)^cram.B.get(2)^cram.C.get(1));
+	 //System.out.println(calculate(8));
+	 
+
+	// System.out.println(cram.A.get(3)^cram.B.get(2)^cram.C.get(1));
  }
 }
