@@ -28,6 +28,19 @@ public class game {
 	 if(Robotmode == true) cram=new cram(Row);
 	 
  }
+ public void setTurn()
+ {
+	 if(play==Player.PLAYERONE)
+		play=Player.PLAYERTWO;
+
+	 else
+		 if(play==Player.PLAYERTWO)
+		 { 
+			 play=Player.PLAYERONE;
+//			 if(RobotMode)
+//				 this.RobotMove(this.getTurn());
+		 }
+ }
  public Player getTurn() {
 	 
 	 return play;
