@@ -2,7 +2,8 @@
 By : Medhat , Aseel Nemer , Oday 
 
 *  Cram game is a combinatorial game so that: 
-1. Two players play 2. The moves allowed for each player depend solely and on where he is and not on the other player.
+1. Two players play 
+2.  The moves allowed for each player depend solely and on where he is and not on the other player.
 3. The only difference between player 1 and player 2 is that player 1 goes first.
 4. The player who does not find where to place the "L", loses. In other words the last supporter is the winner.
 
