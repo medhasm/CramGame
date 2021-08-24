@@ -72,7 +72,7 @@ public class game {
 	 if(this.RobotMode) {
 		 
 		 if(this.getTurn()==Player.PLAYERONE) {
-			// System.out.println("alpha");
+			
 			 this.RobotMove(this.getTurn());
 		 }
 	 }
@@ -93,7 +93,7 @@ public class game {
 		 if(board.get(i).get(0) == Player.EMPTY) counter++;
 		 if(board.get(i).get(1) == Player.EMPTY) counter++;
 		 if(board.get(i + 1).get(0) == Player.EMPTY) counter++;	
-		 //System.out.println(i + 1);
+		
 		 if(board.get(i + 1).get(1) == Player.EMPTY) counter++;
 		 if(counter == 4 || counter == 3) return false;
 		 counter = 0;
@@ -123,15 +123,15 @@ public class game {
 	 Algorithms alg=new Algorithms();
 	 Line line=alg.XORBoard(this.b);
 	 
-	 // System.out.println(line.getString());
+	
 	 
 	 ArrayList<Integer> arr=new ArrayList<Integer>();
 	 
-	//System.out.println(line.getString());
+	
 	 Map<Integer,Map<Integer,ArrayList<Integer>>> kk=cram.getMap().get(line.getString());
 	 
 	 if(line.getString() == "A") {
-		//System.out.println("value:" + kk.containsKey(line.getEnd() - line.getStart() + 1) );
+		
 	 arr=kk.get(line.getEnd() - line.getStart() + 1).get(line.getGrundy());}
 	 if(line.getString() == "B" || line.getString() == "B2" ||
 			 line.getString() == "B3" || line.getString() == "B4") {
@@ -148,8 +148,8 @@ public class game {
 	 if(line.getString() == "C" || line.getString() == "C2" )
 	 arr=kk.get(line.getEnd() - line.getStart() - 1).get(line.getGrundy());
 	 
-     System.out.println(cram.getMap().get(line.getString()));
-	 if(arr == null)System.out.println("yess");
+    
+
 	 for(int i : arr) {
 		int c=(i+2*line.getStart());
 		int row,col;
@@ -163,7 +163,7 @@ public class game {
 			col = 1;
 			
 		}
-	 if(b.setBoard(Player,row , col));  // System.out.println("ok");
+	 if(b.setBoard(Player,row , col));
 	 }
 	 
 	 switch (Player) {
@@ -221,7 +221,7 @@ public class game {
 		 
 	 }else {
 		 holder.add(r);
-		// System.out.println("Size"+ holder.size()) ;
+	
 		 for(int i= 0 ;i < holder.size()  ; i++) {
 			 
 			 int k= Math.abs(holder.get(i) - holder.get((i+1)%3));

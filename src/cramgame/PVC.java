@@ -61,17 +61,17 @@ public class PVC extends JPanel implements MouseListener {
      	   this.Reset.addMouseListener(this);
      	   getRows(rows);
             this.add(background); 
-            //System.out.println("check");
+          
             g.RobotMove(g.getTurn());
-           // System.out.println("check22");
+           
     		for(int i = 0; i<g.b.getBoard().size();i++) {
     			for (int j=0 ; j<g.b.getBoard().get(i).size();j++ ) {
     				if(g.b.getBoard().get(i).get(j) == Player.PLAYERONE) {
     				for(JButton ss : buttons ) {
     					
     				if(Integer.parseInt(ss.getName())	== 2*i + j +1) {
-    				//10
-    					//System.out.println("true");
+    				
+    				
     					ss.setIcon(getfirst());
     				}
     				}  
@@ -283,7 +283,7 @@ public class PVC extends JPanel implements MouseListener {
 				for(JButton ss : buttons ) {
 					
 				if(Integer.parseInt(ss.getName()) == (2*i + j +1)) {
-					//System.out.println(ss.getName() +"   "+ (2*i + j +1));
+					
 					ss.setIcon(getfirst());
 				}
 				}

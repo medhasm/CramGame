@@ -64,7 +64,7 @@ public class Algorithms {
 				 if(firstcond) countempty+=2;
 				 
 			}
-			//System.out.println(countempty +"  :  "+ ((endRow - beginRow)*2));
+			
 			if(countempty == ((endRow - beginRow)*2)) return true;
 			else return false;
 			
@@ -285,8 +285,8 @@ public class Algorithms {
 		
 		
 		//}
-	System.out.println("from calculator: "+mapr.keySet());	
-	if(mapr.containsKey(3))System.out.println("after calc "+mapr.get(3).get(5));
+	
+	
 		return mapr;
 		
 		
@@ -307,22 +307,19 @@ public class Algorithms {
 				
 		for(int i=0;i<stack.size();) {
 			
-			///System.out.println("i: "+i);
-			//System.out.println("before");
+	
 			
 			
 			 upBBlock=stack.get(i).get(0);
 			 lowBBlock=stack.get(i).get(1);
 			 startInd=findstrsub(board,i);
 			 if(startInd == -1 ) return map;
-			/// System.out.println("start: "+startInd);
+		
 			 endInd=findendsub(board,startInd);
-			// System.out.println("findsubc"+startInd+ " :  "+endInd);
-			// System.out.println("end: "+endInd);
+	
 			 if(endInd-startInd == 0) {
 				 if(i==(stack.size()-1)) { 
-					 
-					 //System.out.println("her");
+					
 					 return map; 
 				 
 				 
@@ -341,9 +338,9 @@ public class Algorithms {
 				 }else
 				 map.get("A").put(startInd,endInd);
 				 i=endInd+1;
-				// System.out.println("A");
+				
 			 }
-			// System.out.println("yy"+startInd+ " :  "+endInd);
+			
 			 if(checkifB(startInd,endInd,board)) {
 			 
 
@@ -465,7 +462,7 @@ public class Algorithms {
 			 }
 			 i=endInd +1 ;
 		}
-		System.out.println(map.keySet());
+		
 		return map;
 	}
 	
@@ -481,7 +478,7 @@ public class Algorithms {
 			 lowBBlock=stack.get(i).get(1);	
 			 cond = ((upBBlock != Player.EMPTY)&&(lowBBlock != Player.EMPTY));
 			 if(cond) continue;
-			// System.out.println(i);
+			
 			 return i;
 			 
 		}
@@ -511,7 +508,7 @@ public class Algorithms {
 	
 	public Line XORBoard(Board board) {
 		Map<String,Map<Integer,Integer>> map=findsubCrams(board);
-		//System.out.println(map.containsKey("A") );
+	
 		Map<Integer,Map<Integer,Set<Integer>>> mapr=this.calculator(board);
 		Line RandomLine = null;
 		int counter=0;
@@ -520,23 +517,20 @@ public class Algorithms {
 		int calc=0;
 		int calc2=0;
 
-		//System.out.println("mapkey"+map.keySet());
+	
 		for(String s: map.keySet()) {	
 			
-			//if( s == "A") A=true;
-		//	if( s == "B" ||  s == "B2" ||  s =="B3" ||  s =="B4") B=true;
-		//	if( s == "C" ||  s == "C2") C=true;
-		//	if( s == "D" ||  s == "D2") D=true;
+
         for(int i : map.get(s).keySet()){
-       // 	System.out.println("mapkeyyy"+map.get(s).keySet());
+  
         	end=map.get(s).get(i);	
         	Set<Integer> set=mapr.get(i).get(end);
-        	//if(set == null) System.out.println("Yes");
+     
         	if(counter == 0) RandomLine=new Line(s,i,end,(int)set.toArray()[0],false);
         	    for(String k : map.keySet()) {	
         	    	for(int z : map.get(k).keySet()){
         	    		if(z != i ) {
-        	    		// System.out.println(z+" :: "+k);	
+        	    
         	    	   ends=map.get(k).get(z);
         	    	  
 if( k == "A") calc2=calc2^cram.A.get( ends-z +1);
@@ -549,15 +543,14 @@ if( k == "D" ||  k == "D2") calc2=calc2^cram.D.get( ends-z -1);
         	    	
         	    calc=cc;    
         	    if( (calc^calc2) == 0) {
-        	    	System.out.println("grundy:"+cc);
-        	    	System.out.println("shape: "+s+"start: "+i+"end: "+end);
+
         	    Line line=new Line(s,i,end,cc,true);
-        	   // System.out.println("her");
+        	 
         	    return line;
         	    }}}  			
 		}
 		
-		//System.out.println("her");
+	
 		return RandomLine;
 	}
 	

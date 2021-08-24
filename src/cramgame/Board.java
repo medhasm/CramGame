@@ -25,7 +25,7 @@ public class Board {
 	}
 		
 		public boolean setBoard(Player Playerindex,int RowIndex,int ColIndex) {
-		    System.out.println("ROW:"+RowIndex+" COL:"+ColIndex);
+		//    System.out.println("ROW:"+RowIndex+" COL:"+ColIndex);
 			 if( Board.get(RowIndex).get(ColIndex) != Player.EMPTY) return false; 
 			switch ( Playerindex) {
 			
