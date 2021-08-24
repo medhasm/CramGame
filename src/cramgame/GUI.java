@@ -41,6 +41,11 @@ public class GUI extends JFrame {
 				PVP nframe=new PVP();
 				frame.setVisible(false);
 				}
+				if(demo == button2) { //
+				PVC nframe=new PVC();
+				frame.setVisible(false);
+				}
+				
 			}
 		}
 
