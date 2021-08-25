@@ -91,10 +91,46 @@ public class WallPaper {
 			img= new ImageIcon(getClass().getClassLoader().getResource("edited1.png"));
 			return img;
 
+	}
+	public  ImageIcon getblack() {
+		 ImageIcon img;
+	
+			img= new ImageIcon(getClass().getClassLoader().getResource("black.png"));
+			return img;
 
+	}
+	public  ImageIcon getl() {
+		 ImageIcon img;
+	
+			img= new ImageIcon(getClass().getClassLoader().getResource("l.png"));
+			
+			return img;
 
-		
-		
+	}
+	public  ImageIcon getl2() {
+		 ImageIcon img;
+	
+			img= new ImageIcon(getClass().getClassLoader().getResource("l2.png"));
+			
+			return img;
+
+	}
+	public  ImageIcon getl3() {
+		 ImageIcon img;
+	
+			img= new ImageIcon(getClass().getClassLoader().getResource("l3.png"));
+			
+			
+			return img;
+
+	}
+	public  ImageIcon getl4() {
+		 ImageIcon img;
+	
+			img= new ImageIcon(getClass().getClassLoader().getResource("l4.png"));
+			
+			return img;
+
 	}
 	public  ImageIcon getRandom() {
 		 ImageIcon img;

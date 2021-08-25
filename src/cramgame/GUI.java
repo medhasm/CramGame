@@ -120,8 +120,14 @@ public class GUI  {
 		                
                      }
                      if(PvCflag) {
-   		              for(JButton jButton:PvC.getbuttons()) 
-   		                	jButton.setVisible(false);
+                    	 for(int i=0 ; i<2 ;i++) {
+                    		 for(int j=0 ;j<PvC.getbuttons()[0].length; j++) {
+                    			 PvC.getbuttons()[i][j].setVisible(false); 
+                    		 }
+                    		 
+                    	 }
+   		            
+   		                	
    		                
    		                for(JButton jButton: PvC.leftbuttons()) {
    		                 jButton.setVisible(false);
@@ -135,8 +141,12 @@ public class GUI  {
    						
    						GUIcontainerPanel.add(background);
    						
-   		                for(JButton jButton:PvC.getbuttons()) 
-   		                	c.add(jButton);
+                   	 for(int i=0 ; i<2 ;i++) {
+                		 for(int j=0 ;j<PvC.getbuttons()[0].length; j++) {
+                			c.add( PvC.getbuttons()[i][j]);
+                		 }
+                		 
+                	 }
    		                
    		                for(JButton jButton: PvC.leftbuttons()) {
    		                	
@@ -162,11 +172,17 @@ public class GUI  {
 					button1.setVisible(false);
 					Panelbutton2.setVisible(false);
 					Panelbutton3.setVisible(false);
+					
 				    PvC=new PVC();
 				    PvCflag = true;
 
-              for(JButton jButton:PvC.getbuttons()) 
-              c.add(jButton);
+               	 for(int i=0 ; i<2 ;i++) {
+            		 for(int j=0 ;j<PvC.getbuttons()[0].length; j++) {
+            			c.add(PvC.getbuttons()[i][j]); 
+            		 }
+            		 
+            	 }
+              
               
               for(JButton jButton: PvC.leftbuttons()) 
               c.add(jButton);
@@ -195,9 +211,10 @@ public class GUI  {
 					int c;
 						Vector<JButton> container=new Vector<JButton>();
 						Vector<JButton> buttons=new Vector<JButton>();
+						JButton[][] buttons1;
 						if(PvPflag) buttons = PvP.getbuttons();
-						if(PvCflag) buttons = PvC.getbuttons();
-						for(JButton j : buttons) {
+						if(PvCflag)  buttons1= PvC.getbuttons();
+						for(JButton j : buttons) {///////////////////////////////////////////////////
 							 c=Integer.parseInt(j.getName());
 							if((c == 2*line.getStart()+arr.get(0) )|| (c == 2*line.getStart()+arr.get(1)) || (c == 2*line.getStart()+arr.get(2)) ) { 
 								container.add(j);    
@@ -240,9 +257,14 @@ public class GUI  {
 
 					}
 					  if(PvCflag) {
-			              for(JButton jButton:PvC.getbuttons()) {
-			            	  jButton.setSize(0,0);
-			                	jButton.setVisible(false);}
+	                    	 for(int i=0 ; i<2 ;i++) {
+	                    		 for(int j=0 ;j<PvC.getbuttons()[0].length; j++) {
+	                    			 PvC.getbuttons()[i][j].setVisible(false); 
+	                    			 PvC.getbuttons()[i][j].setSize(0,0);
+	                    		 }
+	                    		 
+	                    	 }
+			     
 			                
 			                for(JButton jButton: PvC.leftbuttons()) {
 			                 jButton.setVisible(false);
