@@ -47,13 +47,8 @@ public class Board {
 			return false;
 		}
 				
-			public void remove(int row,int col) {
-				
-				Board.get(row).set(col, Player.EMPTY);
-				
-				
-				
-				
+			public void remove(int row,int col) {				
+				Board.get(row).set(col, Player.EMPTY);		
 			}
 			public Vector<Vector<Player>> getBoard(){
 				

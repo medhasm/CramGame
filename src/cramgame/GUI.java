@@ -14,6 +14,10 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -21,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.sun.deploy.uitoolkit.impl.fx.Utils;
@@ -31,12 +36,20 @@ public class GUI  {
     JButton button1; 
     JButton button2;
     JButton button3;
+    JButton Reset;
+    JButton back;
+    JButton Hint;
   JPanel  Panelbutton1  ,Panelbutton2, Panelbutton3;
     Font font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,23);
     JFrame frame;
    Container c;
    JPanel GUIcontainerPanel;
    JLabel background;
+   boolean PvPflag=false ;
+   boolean PvCflag =false;
+   PVP PvP;
+   PVC PvC;
+   WallPaper wall;
     
 	 MouseListener mouse=new MouseListener() {
 
@@ -46,7 +59,7 @@ public class GUI  {
 			if(e.getComponent() instanceof JButton) {
 				JButton demo= (JButton) e.getComponent();
 				if(demo == button1) { //
-			    	 WallPaper wall= new WallPaper();
+			    	  
 			    	  background.setIcon(wall.getbackground());
 					
 					GUIcontainerPanel.add(background);
@@ -54,26 +67,199 @@ public class GUI  {
 					button1.setVisible(false);
 					Panelbutton2.setVisible(false);
 					Panelbutton3.setVisible(false);
-				PVP nframe=new PVP();
-				
-               // c.add(nframe);
-               // nframe.setVisible(true);
-                for(JButton jButton:nframe.getbuttons()) 
-                	c.add(jButton);
-                
-                for(JButton jButton: nframe.leftbuttons()) 
-                	c.add(jButton);
-                for(JLabel jLabel: nframe.leftjlabels()) 
+				StartMode();
+				PvP=new PVP();
+				PvPflag = true;
+                for(JButton jButton:PvP.getbuttons()) 
+                	c.add(jButton);          
+                for(JButton jButton: PvP.leftbuttons()) {
+                	c.add(jButton);}
+                for(JLabel jLabel: PvP.leftjlabels()) 
                 	c.add(jLabel);
 
                 c.add(GUIcontainerPanel);
                 c.repaint();
                 c.revalidate();
 				}
+				
+				
+				if(demo == Reset) { 
+                     if(PvPflag) {
+		              for(JButton jButton:PvP.getbuttons()) 
+		                	jButton.setVisible(false);
+		                
+		                for(JButton jButton: PvP.leftbuttons()) {
+		                 jButton.setVisible(false);
+		                	}
+		                for(JLabel jLabel: PvP.leftjlabels()) 
+		                	jLabel.setVisible(false);
+		                
+		                
+						PvP=new PVP();
+						PvPflag = true;
+				    	  
+				    	  background.setIcon(wall.getbackground());
+						
+						GUIcontainerPanel.add(background);
+						
+		                for(JButton jButton:PvP.getbuttons()) 
+		                	c.add(jButton);
+		                
+		                for(JButton jButton: PvP.leftbuttons()) {
+		                	
+		  
+		                	
+		                	c.add(jButton);}
+		                for(JLabel jLabel: PvP.leftjlabels()) 
+		                	c.add(jLabel);
+
+		                c.add(GUIcontainerPanel);
+		                c.repaint();
+		                c.revalidate();  
+		                
+		                
+                     }
+                     if(PvCflag) {
+   		              for(JButton jButton:PvC.getbuttons()) 
+   		                	jButton.setVisible(false);
+   		                
+   		                for(JButton jButton: PvC.leftbuttons()) {
+   		                 jButton.setVisible(false);
+   		                	}
+   		                for(JLabel jLabel: PvC.leftjlabels()) 
+   		                	jLabel.setVisible(false);      
+   						PvC=new PVC();
+   						PvCflag = true;
+   				    	
+   				    	  background.setIcon(wall.getbackground());
+   						
+   						GUIcontainerPanel.add(background);
+   						
+   		                for(JButton jButton:PvC.getbuttons()) 
+   		                	c.add(jButton);
+   		                
+   		                for(JButton jButton: PvC.leftbuttons()) {
+   		                	
+   		  
+   		                	
+   		                	c.add(jButton);}
+   		                for(JLabel jLabel: PvC.leftjlabels()) 
+   		                	c.add(jLabel);
+
+   		                c.add(GUIcontainerPanel);
+   		                c.repaint();
+   		                c.revalidate();  
+   		                
+   		                
+                        }
+					
+				}
 				if(demo == button2) { //
-				PVC nframe=new PVC();
-				frame.dispose();
-				frame.setVisible(false);
+					
+					StartMode();
+			    	background.setIcon(wall.getbackground());
+					GUIcontainerPanel.add(background);
+					button1.setVisible(false);
+					Panelbutton2.setVisible(false);
+					Panelbutton3.setVisible(false);
+				    PvC=new PVC();
+				    PvCflag = true;
+
+              for(JButton jButton:PvC.getbuttons()) 
+              c.add(jButton);
+              
+              for(JButton jButton: PvC.leftbuttons()) 
+              c.add(jButton);
+              for(JLabel jLabel: PvC.leftjlabels()) 
+              c.add(jLabel);
+
+              c.add(GUIcontainerPanel);
+              c.repaint();
+              c.revalidate();
+				}
+				
+				if(demo == Hint) {
+					game g=null;
+					if(PvPflag) g=PvP.GetGame();
+					if(PvCflag) g=PvC.GetGame();
+					
+					Algorithms algo=new Algorithms();
+					Line line=algo.XORBoard(g.b);
+					if(line.getWin()==false) {
+						JOptionPane cong=new JOptionPane("Hint!");
+						cong.showMessageDialog(frame,"Sorry,no Hint to give your in losing state");
+						
+					}else
+					{
+					ArrayList<Integer> arr=algo.getOpMoves(line);
+					int c;
+						Vector<JButton> container=new Vector<JButton>();
+						Vector<JButton> buttons=new Vector<JButton>();
+						if(PvPflag) buttons = PvP.getbuttons();
+						if(PvCflag) buttons = PvC.getbuttons();
+						for(JButton j : buttons) {
+							 c=Integer.parseInt(j.getName());
+							if((c == 2*line.getStart()+arr.get(0) )|| (c == 2*line.getStart()+arr.get(1)) || (c == 2*line.getStart()+arr.get(2)) ) { 
+								container.add(j);    
+							}}
+			
+    Timer timer = new Timer(); 
+	timer.schedule( new TimerTask()  
+			{public void run() { for(JButton j : container)  j.setIcon(wall.gethintpeace());}}
+	                      ,  5*(1000*1));
+						 // TODO Auto-generated catch block    
+						try {Thread.sleep(2000);
+							} catch (InterruptedException el) {el.printStackTrace();}
+						
+							
+							
+						
+
+    timer.schedule( new TimerTask() 
+			{ public void run() {for(JButton j : container)  j.setIcon(wall.getRandom());}}	
+						  ,5*(1000*1));  }}
+				
+				if(demo == back) {
+					
+					
+
+					  if(PvPflag) {
+						 System.out.println("false"); 
+			              for(JButton jButton:PvP.getbuttons()) 
+			                	jButton.setVisible(false);
+			                	 // jButton.setSize(0,0);
+			              
+			                
+			                for(JButton jButton: PvP.leftbuttons()) {
+			                 jButton.setVisible(false);
+			                	}
+			                for(JLabel jLabel: PvP.leftjlabels()) 
+			                	jLabel.setVisible(false);
+			                
+			                PvPflag=false;
+
+					}
+					  if(PvCflag) {
+			              for(JButton jButton:PvC.getbuttons()) {
+			            	  jButton.setSize(0,0);
+			                	jButton.setVisible(false);}
+			                
+			                for(JButton jButton: PvC.leftbuttons()) {
+			                 jButton.setVisible(false);
+			                	}
+			                for(JLabel jLabel: PvC.leftjlabels()) 
+			                	jLabel.setVisible(false);
+			                
+			                PvCflag=false;
+
+					}
+					  StopMode();
+					  c.repaint();
+					  c.revalidate();
+					  
+					  button1.setVisible(true);
+					  Panelbutton2.setVisible(true);
+					  Panelbutton3.setVisible(true);					
 				}
 				
 			}
@@ -83,26 +269,53 @@ public class GUI  {
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
 			font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,23);
-			if(e.getComponent() instanceof JButton) {
-				JButton k=(JButton) e.getComponent();
-				
-				k.setSize(230,40);
-	    	    k.setFont(font);
-			}
+				JButton demo =(JButton) e.getComponent() ;
 
+			
+			if((demo == button1) ) {
+				demo.setSize(230,40);
+	    	    demo.setFont(font);}
+			if (demo == button2) {
+				Panelbutton2.setSize(230,40);
+	    	    demo.setFont(font);}
+			if(demo == button3) {
+				Panelbutton3.setSize(230,40);
+	    	    demo.setFont(font);}
+			
+			if(demo == back) 
+		        back.setSize(90,90);
+
+			if(demo == Reset) 
+                Reset.setSize(60,70);
+			
 		}
 		
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stub
  	       font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,26);
+ 	       JButton demo=(JButton) e.getComponent();
  	       
-			if(e.getComponent() instanceof JButton) {
-				JButton k=(JButton) e.getComponent();
-				k.setSize(280,40);
-	    	    k.setFont(font);
+			if((demo == button1) ) {
+				demo.setSize(280,40);
+	    	    demo.setFont(font);}
+			if (demo == button2) {
+				Panelbutton2.setSize(280,40);
+	    	    demo.setFont(font);}
+				
+			if(demo == button3) {
+				Panelbutton3.setSize(280,40);
+	    	    demo.setFont(font);}
+			
+			
+			if(demo == back) 	
+				back.setSize(85,70);
+
+			if(demo == Reset)
+				Reset.setSize(70,70);
+	
 			}
-		}
+		
 
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -167,39 +380,72 @@ public class GUI  {
        button1.addMouseListener(mouse);
        button2.addMouseListener(mouse);
        button3.addMouseListener(mouse);
-              
-       WallPaper wall= new WallPaper();
-    	
-    	 frame.setIconImage(wall.getcramIcon());
-    	
-    	  background=new JLabel(wall.getbackground());
-    	 
+              //Push to Panel and frame container
+          wall= new WallPaper();
+    	  frame.setIconImage(wall.getcramIcon());
+    	  background=new JLabel(wall.getbackground());	 
     	  GUIcontainerPanel.setLocation(0, 0);
     	  GUIcontainerPanel.setSize(800, 600);
-    	  
-    	   //GUIcontainerPanel.add(button1);
-    	   //GUIcontainerPanel.add(button2);
-    	   //GUIcontainerPanel.add(button3);
     	  Panelbutton1.add(button1);
     	  Panelbutton2.add(button2);
     	  Panelbutton3.add(button3);
-    	   GUIcontainerPanel.add(background);
-    	   
-
-          
-       c.add(button1);
-       c.add( Panelbutton2);
-       c.add( Panelbutton3);
-       c.add(GUIcontainerPanel);
-       
-
-          
-
-    
-  //GUIcontainerPanel.setVisible(true);
-       frame.setVisible(true);
-	
+    	   GUIcontainerPanel.add(background);       
+           c.add(button1);
+           c.add( Panelbutton2);
+           c.add( Panelbutton3);
+           c.add(GUIcontainerPanel);
+           frame.setVisible(true);
 	}
+	  
+	  public void StartMode() {
+		 
+		  
+   	    back=new JButton("Back");
+   	    back.setIcon(wall.getbackbutton());
+   	    back.setLocation(0,0);
+   	    back.setSize(90, 90);
+   	    back.setOpaque(false);
+   	    back.setContentAreaFilled(false);
+   	    back.setBorderPainted(false);      
+   	    back.setFocusPainted(false);
+   	    
+ 	    Hint=new JButton();
+ 	    Hint.setOpaque(false);	
+ 	    Hint.setIcon(wall.gethint());
+ 	    Hint.setLocation(650,5);
+ 	    Hint.setSize(90, 90);
+ 	    Hint.setContentAreaFilled(false);
+ 	    Hint.setBorderPainted(false);      
+ 	    Hint.setFocusPainted(false);
+
+ 	    Reset=new JButton("new Game");
+ 	    Reset.setName("Restart");
+ 	    Reset.setOpaque(false);
+ 	    Reset.setLocation(100,10);
+ 	    Reset.setSize(60, 70);
+ 	    Reset.setIcon(wall.getplayback());
+ 	    Reset.setContentAreaFilled(false); 
+ 	    Reset.setBorderPainted(false);      
+ 	    Reset.setFocusPainted(false);
+ 	    Reset.addMouseListener(mouse);
+ 	    Hint.addMouseListener(mouse);
+ 	    back.addMouseListener(mouse);
+ 	    c.add(Reset);
+ 	    c.add(Hint);
+ 	    c.add(back);}
+	  public void StopMode() {
+
+
+             Reset.setVisible(false);
+	 	   
+	 	    Hint.setVisible(false);
+	 	   back.setVisible(false);
+	 	  
+	 	   PvPflag=false;
+	 	   PvCflag=false;
+		  
+		  
+	  }
 
 	 public static void main(String[] args)
 	 {

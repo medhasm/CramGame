@@ -148,7 +148,7 @@ public class game {
 	 if(line.getString() == "B" || line.getString() == "B2" ||
 			 line.getString() == "B3" || line.getString() == "B4") {
 		 
-		// System.out.println(line.getString());
+		
 	arr=kk.get(line.getEnd() - line.getStart()).get(line.getGrundy());	 
 	 }
 	 
@@ -160,7 +160,7 @@ public class game {
 	 if(line.getString() == "C" || line.getString() == "C2" )
 	 arr=kk.get(line.getEnd() - line.getStart() - 1).get(line.getGrundy());
 	 
-    System.out.println(arr);
+    
 
 	 for(int i : arr) {
 		int c=(i+2*line.getStart());
