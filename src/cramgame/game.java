@@ -28,6 +28,15 @@ public class game {
 	 if(Robotmode == true) cram=new cram(Row);
 	 
  }
+ public void setTurn1()
+ {
+	 if(play==Player.PLAYERONE)
+			 play=Player.PLAYERTWO;
+		 
+	 else
+		 if(play==Player.PLAYERTWO)
+			 play=Player.PLAYERONE;
+ }
  public void setTurn()
  {
 	 if(play==Player.PLAYERONE)
@@ -98,7 +107,7 @@ public class game {
 	 Vector<Vector<Player>> board=b.getBoard();
 	 ArrayList<Integer> holder=new ArrayList<Integer>();
 	 int counter=0;
-	 if(this.winnerflag) return true;
+//	 if(this.winnerflag) return true;
 	 
 	 for(int i=0 ; i < board.size() - 1 ; i++) {
 		 if(this.Stepcounter == 3) {
