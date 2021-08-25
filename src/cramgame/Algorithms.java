@@ -1,5 +1,6 @@
 package cramgame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -140,7 +141,7 @@ public class Algorithms {
 	}
 	
 	public Map<Integer,Map<Integer,Set<Integer>>> calculator(Board board) {
-		
+		cram cram=new cram(board.getBoard().size());
 		Map<String,Map<Integer,Integer>> map=findsubCrams(board);
 		Map<Integer,Map<Integer,Set<Integer>>> mapr=
 				new HashMap<Integer,Map<Integer,Set<Integer>>>();
@@ -363,7 +364,9 @@ public class Algorithms {
 							map.putIfAbsent("B",key );
 						 }else map.get("B").put(startInd,endInd);}
 					if(thirdcond&&fourcond) {
+						//System.out.println("thirdandfourd");
 						 if(map.get("B2") == null) {
+							 
 							 Map key=new HashMap<Integer,Integer>();
 							 key.put(startInd,endInd);
 							map.putIfAbsent("B2",key );
@@ -373,7 +376,7 @@ public class Algorithms {
 						 if(map.get("B3") == null) {
 							 Map key=new HashMap<Integer,Integer>();
 							 key.put(startInd,endInd);
-							map.putIfAbsent("B2",key );
+							map.putIfAbsent("B3",key );
 						 }
 						 else map.get("B3").put(startInd,endInd);}
 					if(firstcond&&sixcond) {
@@ -554,6 +557,39 @@ if( k == "D" ||  k == "D2") calc2=calc2^cram.D.get( ends-z -1);
 		return RandomLine;
 	}
 	
+	
+	public ArrayList<Integer> getOpMoves(Line line){
+		
+		
+		 Line lin=line;
+		 
+			
+			
+		 ArrayList<Integer> arr=new ArrayList<Integer>();
+		 cram cram =new cram(15);
+		
+		 Map<Integer,Map<Integer,ArrayList<Integer>>> kk=cram.getMap().get(line.getString());
+		 
+		 if(line.getString() == "A") {
+			
+		 arr=kk.get(line.getEnd() - line.getStart() + 1).get(line.getGrundy());}
+		 if(line.getString() == "B" || line.getString() == "B2" ||
+				 line.getString() == "B3" || line.getString() == "B4") {
+			 
+			 
+		arr=kk.get(line.getEnd() - line.getStart()).get(line.getGrundy());	 
+		 }
+		 
+		 if(line.getString() == "D" || line.getString() == "D2" ) {
+			
+		 arr=(ArrayList<Integer>) cram.map.get(line.getString()).get(line.getEnd() - line.getStart() - 1).get(line.getGrundy());
+		 
+		 }
+		 if(line.getString() == "C" || line.getString() == "C2" )
+		 arr=kk.get(line.getEnd() - line.getStart() - 1).get(line.getGrundy());
+	return arr;	
+		
+	}
 	
 	
 	

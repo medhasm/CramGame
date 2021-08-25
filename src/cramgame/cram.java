@@ -64,9 +64,9 @@ public class cram {
 				new HashMap<Integer,Map<Integer,ArrayList<Integer>>>();
 		for(int j=0 ;j<=i-2;j++)
 		{
-			
+			//System.out.println(j+ " : "+k);
 			Set.add(A.get(j)^B.get(k));//L
-			//if(i==2) System.out.println("xor" + (A.get(j)^B.get(k)));
+	
 			arr=new ArrayList<Integer>();
 			arr.add(2*j+1);
 			arr.add(2*j+2);
@@ -77,7 +77,7 @@ public class cram {
 			
 			k--;
 		}
-		//System.out.println("mapA: "+mapA.keySet() +"  i:"+i);
+		
 		mp.put(i, mapA);
 		if(map.get("A") ==null) map.putIfAbsent("A", mp);
 		else	map.get("A").put(i, mapA);
@@ -213,12 +213,12 @@ return Set;
 			
 			Set.add(A.get(j)^C.get(k)); //  rotate L 280 left 
 			arr=new ArrayList<Integer>();
-			if(i==5)	System.out.println("A XOR C: "+(A.get(j)^C.get(k))+"j "+j + "k "+k);
+		
 			
 			arr.add(2*(k+1) + 1);
 			arr.add(2*(k+1) + 3);
 			arr.add(2*(k+1) + 4);
-			System.out.println(arr);
+			
 			
 			mapB.put(A.get(j)^C.get(k), arr);
 			
@@ -238,8 +238,7 @@ return Set;
 		else	map.get("B3").put(i, mapB);
 			mapB=new HashMap<Integer,ArrayList<Integer>>();
 			
-			if(i==5) {System.out.println("MexB2: "+calculateMex(Set));}
-			if(i==5)  System.out.println("Path:"+map.get("B3").get(i).get(0));	
+		
 	
 			return Set;
 		
@@ -470,22 +469,5 @@ return Set;
 	    return Mex;
 	}
 	   
- public static void main(String[] args)
- {
-	cram cram=new cram(10);
-	Map<String,Map<Integer,Map<Integer,ArrayList<Integer>>>>cc=cram.getMap();
-	//System.out.println(cc.get("A").keySet().toString());
-	 //
-	 //System.out.println(calculate(50));
-	 //print(A);
-	 //print(B);
-	 //print(C);
-	// print(D);
-//	 cram cram=new cram();
-	 
-	 //System.out.println(calculate(8));
-	 
 
-	// System.out.println(cram.A.get(3)^cram.B.get(2)^cram.C.get(1));
- }
 }

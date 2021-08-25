@@ -1,6 +1,8 @@
 package cramgame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -19,16 +21,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.sun.deploy.uitoolkit.impl.fx.Utils;
+import com.sun.glass.events.WindowEvent;
 import com.sun.prism.Image;
 
-public class GUI extends JFrame {
+public class GUI  {
     JButton button1; 
     JButton button2;
     JButton button3;
-    Font font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,18);
+  JPanel  Panelbutton1  ,Panelbutton2, Panelbutton3;
+    Font font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,23);
     JFrame frame;
+   Container c;
+   JPanel GUIcontainerPanel;
+   JLabel background;
     
 	 MouseListener mouse=new MouseListener() {
 
@@ -38,11 +46,33 @@ public class GUI extends JFrame {
 			if(e.getComponent() instanceof JButton) {
 				JButton demo= (JButton) e.getComponent();
 				if(demo == button1) { //
+			    	 WallPaper wall= new WallPaper();
+			    	  background.setIcon(wall.getbackground());
+					
+					GUIcontainerPanel.add(background);
+					//GUIcontainerPanel.setVisible(true);
+					button1.setVisible(false);
+					Panelbutton2.setVisible(false);
+					Panelbutton3.setVisible(false);
 				PVP nframe=new PVP();
-				frame.setVisible(false);
+				
+               // c.add(nframe);
+               // nframe.setVisible(true);
+                for(JButton jButton:nframe.getbuttons()) 
+                	c.add(jButton);
+                
+                for(JButton jButton: nframe.leftbuttons()) 
+                	c.add(jButton);
+                for(JLabel jLabel: nframe.leftjlabels()) 
+                	c.add(jLabel);
+
+                c.add(GUIcontainerPanel);
+                c.repaint();
+                c.revalidate();
 				}
 				if(demo == button2) { //
 				PVC nframe=new PVC();
+				frame.dispose();
 				frame.setVisible(false);
 				}
 				
@@ -52,7 +82,7 @@ public class GUI extends JFrame {
 		@Override
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
-			font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,18);
+			font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,23);
 			if(e.getComponent() instanceof JButton) {
 				JButton k=(JButton) e.getComponent();
 				
@@ -65,7 +95,8 @@ public class GUI extends JFrame {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stub
- 	       font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,25);
+ 	       font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,26);
+ 	       
 			if(e.getComponent() instanceof JButton) {
 				JButton k=(JButton) e.getComponent();
 				k.setSize(280,40);
@@ -89,20 +120,35 @@ public class GUI extends JFrame {
 	  public GUI(){
         frame = new JFrame("Cram Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(701,526);
+        frame.setSize(800,600);
         frame.setLayout(null);
+        
+        c=frame.getContentPane();
+         GUIcontainerPanel=new JPanel();
         
    button1 = new JButton("Play With Friend");
     
    button2 = new JButton("Play With Computer");
    button3 = new JButton("Whats Is Cram?");
-       
-       button1.setSize(230,40);
-       button2.setSize(230,40);
-       button3.setSize(230,40);
-       button1.setLocation(230, 100);
-       button2.setLocation(230, 170);
-       button3.setLocation(230, 240);  
+   Panelbutton1 =new JPanel();
+   
+    Panelbutton2=new JPanel();
+    Panelbutton3=new JPanel();
+  Color col=new Color(216,180,96);
+  button1.setForeground(col);
+  button2.setForeground(col);
+  button3.setForeground(col);
+  button1.setSize(230,40);
+  Panelbutton2.setSize(230,40);
+  Panelbutton3.setSize(230,40);
+  button1.setLocation(230, 100);
+  Panelbutton2.setLocation(230, 170);
+  Panelbutton3.setLocation(230, 240); 
+  Panelbutton1.setOpaque(false);
+  Panelbutton2.setOpaque(false);
+  Panelbutton3.setOpaque(false);
+ // Panelbutton2.setBorderPainted(false);      
+ // Panelbutton2.setFocusPainted(false);
        button1.setOpaque(false);
        button1.setContentAreaFilled(false);
        button1.setBorderPainted(false);      
@@ -118,34 +164,39 @@ public class GUI extends JFrame {
        button3.setBorderPainted(false);      
        button3.setFocusPainted(false);
        button3.setFont(font);
-       
-
-    		   button1.addMouseListener(mouse);
-               button2.addMouseListener(mouse);
-               button3.addMouseListener(mouse);
+       button1.addMouseListener(mouse);
+       button2.addMouseListener(mouse);
+       button3.addMouseListener(mouse);
               
-       try {
+       WallPaper wall= new WallPaper();
     	
-    	   ImageIcon img=new ImageIcon(ImageIO.read(new File("background2.jpg")));//
-    	  JLabel background=new JLabel(img);
+    	 frame.setIconImage(wall.getcramIcon());
+    	
+    	  background=new JLabel(wall.getbackground());
     	 
+    	  GUIcontainerPanel.setLocation(0, 0);
+    	  GUIcontainerPanel.setSize(800, 600);
+    	  
+    	   //GUIcontainerPanel.add(button1);
+    	   //GUIcontainerPanel.add(button2);
+    	   //GUIcontainerPanel.add(button3);
+    	  Panelbutton1.add(button1);
+    	  Panelbutton2.add(button2);
+    	  Panelbutton3.add(button3);
+    	   GUIcontainerPanel.add(background);
     	   
-    	   background.setSize(701, 526);
-           frame.getContentPane().add(button1);
-    	   frame.getContentPane().add(button2);
-    	   frame.getContentPane().add(button3);
-           frame.getContentPane().add(background);
 
-          background.setLocation(0, 0);
-           
-       } catch (IOException e   ) {
-           e.printStackTrace();
-       }
+          
+       c.add(button1);
+       c.add( Panelbutton2);
+       c.add( Panelbutton3);
+       c.add(GUIcontainerPanel);
+       
 
           
 
-     frame.setSize(701, 526);
-  
+    
+  //GUIcontainerPanel.setVisible(true);
        frame.setVisible(true);
 	
 	}
