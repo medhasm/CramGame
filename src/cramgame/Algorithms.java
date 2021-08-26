@@ -364,7 +364,7 @@ public class Algorithms {
 							map.putIfAbsent("B",key );
 						 }else map.get("B").put(startInd,endInd);}
 					if(thirdcond&&fourcond) {
-						//System.out.println("thirdandfourd");
+					
 						 if(map.get("B2") == null) {
 							 
 							 Map key=new HashMap<Integer,Integer>();
@@ -523,35 +523,36 @@ public class Algorithms {
 	
 		for(String s: map.keySet()) {	
 			
+		
 
         for(int i : map.get(s).keySet()){
-  
+             calc2=0;
         	end=map.get(s).get(i);	
         	Set<Integer> set=mapr.get(i).get(end);
      
-        	if(counter == 0) RandomLine=new Line(s,i,end,(int)set.toArray()[0],false);
+        	if(counter == 0) {RandomLine=new Line(s,i,end,(int)set.toArray()[0],false);
+        	counter++;
+        	}
+        	
         	    for(String k : map.keySet()) {	
         	    	for(int z : map.get(k).keySet()){
         	    		if(z != i ) {
         	    
         	    	   ends=map.get(k).get(z);
-        	    	  
+        	    	 
 if( k == "A") calc2=calc2^cram.A.get( ends-z +1);
 if( k == "B" ||  k == "B2" ||  k =="B3" ||  k =="B4") calc2=calc2^cram.B.get( ends-z );
 if( k == "C" ||  k == "C2") calc2=calc2^cram.C.get( ends-z -1);
 if( k == "D" ||  k == "D2") calc2=calc2^cram.D.get( ends-z -1);  
         	    		  }	} }
         	    for (int cc : set) {
-        	    	
-        	    	
-        	    calc=cc;    
-        	    if( (calc^calc2) == 0) {
-
+        	    calc=cc;      
+        	    if( (calc^calc2) == 0) {   
         	    Line line=new Line(s,i,end,cc,true);
-        	 
         	    return line;
         	    }}}  			
 		}
+		
 		
 	
 		return RandomLine;

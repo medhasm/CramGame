@@ -3,11 +3,13 @@ package cramgame;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
+import java.awt.Font;
 import java.lang.Math;
 
 
 
 public class game {
+ArrayList<Integer> forremove=new ArrayList<Integer>();
  Board b;
  int numRows;
  boolean RobotMode;
@@ -60,14 +62,17 @@ public class game {
 		  // Exception ("check number of rows and columns");
 	 Stepcounter=Stepcounter - 1;
 	boolean flag= b.setBoard(player, RowIndex, ColIndex);
+	
 	if(!flag) {
+		
 		Stepcounter=Stepcounter + 1;
 	    return false;
 		//Stepcounter=Stepcounter + 1;
-	//	b.remove(RowIndex, ColIndex);
+	//b.remove(RowIndex, ColIndex);
 		
 	}
 	if(!checkMove(RowIndex,ColIndex)) {
+		
 		 b.remove(RowIndex, ColIndex);
 		 Stepcounter=Stepcounter + 1;
 		 return false;
@@ -75,9 +80,11 @@ public class game {
 		
 	}
 	
+	forremove.add(2*RowIndex + ColIndex + 1);
+	
 	if(flag && Stepcounter == 0) {
 		
-		
+		forremove=new ArrayList<Integer>();
 	 switch (this.getTurn()) {
 	 
 	 case PLAYERONE:
@@ -111,6 +118,7 @@ public class game {
 		 }
 	 }
 	}
+	
 	 return flag;
 	 
 	 
@@ -236,6 +244,7 @@ public class game {
 	 int r=row + 1 ;
 	 
 	 
+	 
 	 if(this.Stepcounter == 2) {//check while option
 		 holder.add(r);
 		 return true;
@@ -245,39 +254,39 @@ public class game {
 		  holder.add(r);
 		 if(Math.abs(holder.get(0) - holder.get(1))>1) {
 			 holder.remove(1);
-			 return false;
-			 
-		 }else return true;
-		 
-		 
-		 
-		 
-		 
-	 }else {
+			 return false;	 
+		     }else return true;	 
+	               }else {
 		 holder.add(r);
-	
 		 for(int i= 0 ;i < holder.size()  ; i++) {
-			 
 			 int k= Math.abs(holder.get(i) - holder.get((i+1)%3));
 			 int s=Math.abs(holder.get(i)-holder.get((i+2)%3));
 			 if(k  > 1|| s > 1) {
 				 holder.remove(2);
-				 return false;
-			 }
-		 }
+				 return false;}}
+	 
 		 holder=new ArrayList<Integer>();
 		 return true;
-		 }
-
-		 
-		 
-	 
-	 
-	 
-	
-	 
-	 
-	 
- }
+		 }}
  
+ public void remove() {
+	 int row,col;
+	 if(forremove.size()!=0) {
+	 for(int i :forremove) {
+			int c=i;
+			int v=c%2;
+			if(v == 1) {
+			 row=(c/2) ;
+			 col=v - 1;
+			}else {
+				row = (c/2) - 1;
+				col = 1;
+				
+			}
+			b.remove(row,col ); 
+	 }
+	 forremove=new ArrayList<Integer>();
+	 holder=new ArrayList<Integer>();
+	 this.Stepcounter=3;
+	 } }
 }

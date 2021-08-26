@@ -39,6 +39,7 @@ public class GUI  {
     JButton Reset;
     JButton back;
     JButton Hint;
+    JButton Trash;
   JPanel  Panelbutton1  ,Panelbutton2, Panelbutton3;
     Font font=new Font("Harlow Solid Italic",Font.BOLD | Font.ITALIC,23);
     JFrame frame;
@@ -120,12 +121,9 @@ public class GUI  {
 		                
                      }
                      if(PvCflag) {
-                    	 for(int i=0 ; i<2 ;i++) {
-                    		 for(int j=0 ;j<PvC.getbuttons()[0].length; j++) {
-                    			 PvC.getbuttons()[i][j].setVisible(false); 
-                    		 }
-                    		 
-                    	 }
+    		                for(JButton jButton: PvC.getbuttons()) {
+    	   		                 jButton.setVisible(false);
+    	   		                	}
    		            
    		                	
    		                
@@ -140,13 +138,11 @@ public class GUI  {
    				    	  background.setIcon(wall.getbackground());
    						
    						GUIcontainerPanel.add(background);
-   						
-                   	 for(int i=0 ; i<2 ;i++) {
-                		 for(int j=0 ;j<PvC.getbuttons()[0].length; j++) {
-                			c.add( PvC.getbuttons()[i][j]);
-                		 }
-                		 
-                	 }
+   		                for(JButton jButton: PvC.getbuttons()) {
+   		                	
+   		  
+   		                	
+   		                	c.add(jButton);}
    		                
    		                for(JButton jButton: PvC.leftbuttons()) {
    		                	
@@ -164,7 +160,7 @@ public class GUI  {
                         }
 					
 				}
-				if(demo == button2) { //
+	if(demo == button2) { //
 					
 					StartMode();
 			    	background.setIcon(wall.getbackground());
@@ -176,12 +172,8 @@ public class GUI  {
 				    PvC=new PVC();
 				    PvCflag = true;
 
-               	 for(int i=0 ; i<2 ;i++) {
-            		 for(int j=0 ;j<PvC.getbuttons()[0].length; j++) {
-            			c.add(PvC.getbuttons()[i][j]); 
-            		 }
-            		 
-            	 }
+		              for(JButton jButton: PvC.getbuttons()) 
+		                  c.add(jButton);
               
               
               for(JButton jButton: PvC.leftbuttons()) 
@@ -194,7 +186,7 @@ public class GUI  {
               c.revalidate();
 				}
 				
-				if(demo == Hint) {
+	if(demo == Hint) {
 					game g=null;
 					if(PvPflag) g=PvP.GetGame();
 					if(PvCflag) g=PvC.GetGame();
@@ -211,14 +203,16 @@ public class GUI  {
 					int c;
 						Vector<JButton> container=new Vector<JButton>();
 						Vector<JButton> buttons=new Vector<JButton>();
-						JButton[][] buttons1;
+						
 						if(PvPflag) buttons = PvP.getbuttons();
-						if(PvCflag)  buttons1= PvC.getbuttons();
+						if(PvCflag)  buttons= PvC.getbuttons();
 						for(JButton j : buttons) {///////////////////////////////////////////////////
 							 c=Integer.parseInt(j.getName());
-							if((c == 2*line.getStart()+arr.get(0) )|| (c == 2*line.getStart()+arr.get(1)) || (c == 2*line.getStart()+arr.get(2)) ) { 
+							if((c == 2*line.getStart()+arr.get(0) )|| (c == 2*line.getStart()+arr.get(1)) || (c == 2*line.getStart()+arr.get(2)) ) 
+							{ 
 								container.add(j);    
-							}}
+							}
+							}
 			
     Timer timer = new Timer(); 
 	timer.schedule( new TimerTask()  
@@ -234,45 +228,27 @@ public class GUI  {
 
     timer.schedule( new TimerTask() 
 			{ public void run() {for(JButton j : container)  j.setIcon(wall.getRandom());}}	
-						  ,5*(1000*1));  }}
+						  ,5*(1000*1));  }
+					}//close if hint
 				
-				if(demo == back) {
-					
-					
-
-					  if(PvPflag) {
-						 System.out.println("false"); 
-			              for(JButton jButton:PvP.getbuttons()) 
+	if(demo == back) {
+					     if(PvPflag) {					 
+			                  for(JButton jButton:PvP.getbuttons()) 
 			                	jButton.setVisible(false);
-			                	 // jButton.setSize(0,0);
-			              
-			                
-			                for(JButton jButton: PvP.leftbuttons()) {
-			                 jButton.setVisible(false);
-			                	}
-			                for(JLabel jLabel: PvP.leftjlabels()) 
+			                  for(JButton jButton: PvP.leftbuttons()) 
+			                 jButton.setVisible(false);   	
+			                  for(JLabel jLabel: PvP.leftjlabels()) 
 			                	jLabel.setVisible(false);
-			                
-			                PvPflag=false;
-
+			                    PvPflag=false;
 					}
-					  if(PvCflag) {
-	                    	 for(int i=0 ; i<2 ;i++) {
-	                    		 for(int j=0 ;j<PvC.getbuttons()[0].length; j++) {
-	                    			 PvC.getbuttons()[i][j].setVisible(false); 
-	                    			 PvC.getbuttons()[i][j].setSize(0,0);
-	                    		 }
-	                    		 
-	                    	 }
-			     
-			                
-			                for(JButton jButton: PvC.leftbuttons()) {
-			                 jButton.setVisible(false);
-			                	}
-			                for(JLabel jLabel: PvC.leftjlabels()) 
-			                	jLabel.setVisible(false);
-			                
-			                PvCflag=false;
+					     if(PvCflag) {
+                                for(JButton j: PvC.getbuttons()) 
+	                    			 j.setVisible(false); 
+			                    for(JButton jButton: PvC.leftbuttons()) 
+			                         jButton.setVisible(false);
+			                     for(JLabel jLabel: PvC.leftjlabels()) 
+			                	jLabel.setVisible(false);			                
+			                     PvCflag=false;
 
 					}
 					  StopMode();
@@ -283,6 +259,27 @@ public class GUI  {
 					  Panelbutton2.setVisible(true);
 					  Panelbutton3.setVisible(true);					
 				}
+	if(demo == Trash) {
+		if(PvPflag) {
+			
+			if(PvP.GetGame().forremove != null) {
+			  PvP.removeIcons(PvP.GetGame().forremove);
+			  PvP.GetGame().remove();
+			}
+			  
+		}
+		if(PvCflag) {
+			
+			if(PvC.GetGame().forremove != null) {
+			  PvC.removeIcons(PvC.GetGame().forremove);
+			  PvC.GetGame().remove();
+			}
+			  
+		}
+		
+		
+		
+	}
 				
 			}
 		}
@@ -309,7 +306,8 @@ public class GUI  {
 
 			if(demo == Reset) 
                 Reset.setSize(60,70);
-			
+			if(demo == Hint) Hint.setLocation(700, 5);
+			if(demo == Trash) Trash.setLocation(800, 20);
 		}
 		
 		@Override
@@ -335,7 +333,8 @@ public class GUI  {
 
 			if(demo == Reset)
 				Reset.setSize(70,70);
-	
+	        if(demo == Hint) Hint.setLocation(700, 0);
+	        if(demo == Trash) Trash.setLocation(800, 10);
 			}
 		
 
@@ -355,7 +354,7 @@ public class GUI  {
 	  public GUI(){
         frame = new JFrame("Cram Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800,600);
+        frame.setSize(1000,650);
         frame.setLayout(null);
         
         c=frame.getContentPane();
@@ -376,9 +375,9 @@ public class GUI  {
   button1.setSize(230,40);
   Panelbutton2.setSize(230,40);
   Panelbutton3.setSize(230,40);
-  button1.setLocation(230, 100);
-  Panelbutton2.setLocation(230, 170);
-  Panelbutton3.setLocation(230, 240); 
+  button1.setLocation(330, 110);
+  Panelbutton2.setLocation(330, 180);
+  Panelbutton3.setLocation(330, 250); 
   Panelbutton1.setOpaque(false);
   Panelbutton2.setOpaque(false);
   Panelbutton3.setOpaque(false);
@@ -407,7 +406,7 @@ public class GUI  {
     	  frame.setIconImage(wall.getcramIcon());
     	  background=new JLabel(wall.getbackground());	 
     	  GUIcontainerPanel.setLocation(0, 0);
-    	  GUIcontainerPanel.setSize(800, 600);
+    	  GUIcontainerPanel.setSize(1000, 750);
     	  Panelbutton1.add(button1);
     	  Panelbutton2.add(button2);
     	  Panelbutton3.add(button3);
@@ -434,12 +433,21 @@ public class GUI  {
  	    Hint=new JButton();
  	    Hint.setOpaque(false);	
  	    Hint.setIcon(wall.gethint());
- 	    Hint.setLocation(650,5);
+ 	    Hint.setLocation(700,5);
  	    Hint.setSize(90, 90);
  	    Hint.setContentAreaFilled(false);
  	    Hint.setBorderPainted(false);      
  	    Hint.setFocusPainted(false);
-
+        
+ 	    Trash=new JButton();
+ 	    Trash.setOpaque(false);	
+ 	    Trash.setIcon(wall.getTrashIcon());
+ 	    Trash.setLocation(800,20);
+ 	    Trash.setSize(60, 60);
+ 	    Trash.setContentAreaFilled(false);
+ 	    Trash.setBorderPainted(false);      
+ 	    Trash.setFocusPainted(false);
+ 	    
  	    Reset=new JButton("new Game");
  	    Reset.setName("Restart");
  	    Reset.setOpaque(false);
@@ -452,8 +460,10 @@ public class GUI  {
  	    Reset.addMouseListener(mouse);
  	    Hint.addMouseListener(mouse);
  	    back.addMouseListener(mouse);
+ 	   Trash.addMouseListener(mouse);
  	    c.add(Reset);
  	    c.add(Hint);
+ 	   c.add(Trash);
  	    c.add(back);}
 	  public void StopMode() {
 
@@ -462,7 +472,7 @@ public class GUI  {
 	 	   
 	 	    Hint.setVisible(false);
 	 	   back.setVisible(false);
-	 	  
+	 	  Trash.setVisible(false);
 	 	   PvPflag=false;
 	 	   PvCflag=false;
 		  

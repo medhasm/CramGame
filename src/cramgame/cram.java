@@ -460,7 +460,11 @@ return Set;
 		System.out.println('\n');
 	}
 
-	
+	 public static void main(String[] args)
+	 {
+        //     cram cram=new cram(10);
+       //      System.out.println(cram.B.get(2));
+	 }
 	public static int calculateMex(Set<Integer> Set)
 	{
 	    int Mex = 0;

@@ -17,7 +17,7 @@ public class WallPaper {
 	//	try {
   	 ///  try {
   		// System.out.println(getClass().getClassLoader().getResource(".").getPath());
-		img= new ImageIcon(getClass().getClassLoader().getResource("background4.jpg"));
+		img= new ImageIcon(getClass().getClassLoader().getResource("newback.png"));//background4.jpg
 		return img;
 	//} catch (IOException e) {
 		// TODO Auto-generated catch block
@@ -92,6 +92,36 @@ public class WallPaper {
 			return img;
 
 	}
+	public  ImageIcon getTrashIcon() {
+		    ImageIcon img;
+			img= new ImageIcon(getClass().getClassLoader().getResource("trash.png"));
+			return img;
+
+	}
+	public  ImageIcon getL() {
+	    ImageIcon img;
+		img= new ImageIcon(getClass().getClassLoader().getResource("L.png"));
+		return img;
+
+}
+	public  ImageIcon getLL() {
+	    ImageIcon img;
+		img= new ImageIcon(getClass().getClassLoader().getResource("LL.png"));
+		return img;
+
+}
+	public  ImageIcon getLLL() {
+	    ImageIcon img;
+		img= new ImageIcon(getClass().getClassLoader().getResource("LLL.png"));
+		return img;
+
+}
+	public  ImageIcon getLLLL() {
+	    ImageIcon img;
+		img= new ImageIcon(getClass().getClassLoader().getResource("LLLL.png"));
+		return img;
+
+}
 	public  ImageIcon getblack() {
 		 ImageIcon img;
 	
@@ -99,14 +129,14 @@ public class WallPaper {
 			return img;
 
 	}
-	public  ImageIcon getl() {
-		 ImageIcon img;
+	//public  ImageIcon getl() {
+		// ImageIcon img;
 	
-			img= new ImageIcon(getClass().getClassLoader().getResource("l.png"));
+		//	img= new ImageIcon(getClass().getClassLoader().getResource("l.png"));
 			
-			return img;
+		//	return img;
 
-	}
+	//}
 	public  ImageIcon getl2() {
 		 ImageIcon img;
 	
