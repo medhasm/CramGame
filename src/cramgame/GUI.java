@@ -27,12 +27,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import com.sun.deploy.uitoolkit.impl.fx.Utils;
 import com.sun.glass.events.WindowEvent;
 import com.sun.prism.Image;
 
 public class GUI  {
+	JTextArea whatscram;
+	JPanel WSC;
     JButton button1; 
     JButton button2;
     JButton button3;
@@ -299,7 +302,8 @@ public class GUI  {
 	    	    demo.setFont(font);}
 			if(demo == button3) {
 				Panelbutton3.setSize(230,40);
-	    	    demo.setFont(font);}
+	    	    demo.setFont(font);
+	    	    WSC.setVisible(false);}
 			
 			if(demo == back) 
 		        back.setSize(90,90);
@@ -325,7 +329,8 @@ public class GUI  {
 				
 			if(demo == button3) {
 				Panelbutton3.setSize(280,40);
-	    	    demo.setFont(font);}
+	    	    demo.setFont(font);
+	    	    WSC.setVisible(true);}
 			
 			
 			if(demo == back) 	
@@ -358,17 +363,44 @@ public class GUI  {
         frame.setLayout(null);
         
         c=frame.getContentPane();
-         GUIcontainerPanel=new JPanel();
+        GUIcontainerPanel=new JPanel();
         
-   button1 = new JButton("Play With Friend");
-    
-   button2 = new JButton("Play With Computer");
-   button3 = new JButton("Whats Is Cram?");
-   Panelbutton1 =new JPanel();
-   
+         button1 = new JButton("Play With Friend");
+         button2 = new JButton("Play With Computer");
+         button3 = new JButton("Whats Is Cram?");
+         Panelbutton1 =new JPanel();
+         
+         WSC=new JPanel();
+         
+         whatscram=new JTextArea();
+         whatscram.setSize(500, 500);
+         whatscram.setLineWrap(true);
+         whatscram.setWrapStyleWord(true);
+         whatscram.setText(
+"Cram game is a combinatorial game so that:"
+        		 
+                + "\n" +
+                "1. Two players play"
+                +" \n" +
+         	"2. The moves allowed for each player depend solely "+"\n"+
+                " and on where he is and not on the other player." +"\n" +
+            "3. The only difference between player 1 "+"\n"+
+                "and player 2 is that player 1 goes first."+"\n" + 
+            "4. The player who does not find where to place the L,"
+            +"\n"+ " loses. In other words the last supporter is the winner"+"\n"+
+         	"5.L (Pieace) can be place in 4 diffrent way"
+         	+"\n"+" (rotate 90 degree left rigth see images in one of"+"\n"+" the modes). ");
+         Font fo=new Font("Arial Rounded MT Bold",Font.ROMAN_BASELINE,23);
+         Color col=new Color(216,180,96);
+         whatscram.setFont(fo);
+         whatscram.setForeground(Color.BLACK);
+         WSC.setSize(500, 450);
+         WSC.setLocation(500,120);
+         WSC.setVisible(false);
+         WSC.add(whatscram);
     Panelbutton2=new JPanel();
     Panelbutton3=new JPanel();
-  Color col=new Color(216,180,96);
+ 
   button1.setForeground(col);
   button2.setForeground(col);
   button3.setForeground(col);
@@ -414,7 +446,9 @@ public class GUI  {
            c.add(button1);
            c.add( Panelbutton2);
            c.add( Panelbutton3);
+          c.add(WSC);
            c.add(GUIcontainerPanel);
+            
            frame.setVisible(true);
 	}
 	  
