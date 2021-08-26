@@ -15,4 +15,16 @@ And to allow people who are interested in thinking games and math games to play 
 * Sprague–Grundy theorem states that every impartial  game under the normal play convention is equivalent to a one-heap game of nim,
 or to an infinite generalization of nim.The Sprague-Grundy function assigns to each position in a game a natural number
    
-   
+to start the game :
+![WhatsApp Image 2021-08-26 at 09 29 55](https://user-images.githubusercontent.com/57863182/130912504-7b2a59bb-8cdf-42b4-83f1-89b9f1ac60f9.jpeg)
+
+
+put the number of column :
+![WhatsApp Image 2021-08-26 at 09 32 17](https://user-images.githubusercontent.com/57863182/130912735-4e2cebec-fbe5-4fdc-956a-3c559a4850e6.jpeg)
+ 
+ 
+now you can play :
+
+![WhatsApp Image 2021-08-26 at 09 33 39](https://user-images.githubusercontent.com/57863182/130912947-ecfe0576-36e6-4ea6-861a-a406cca73def.jpeg)
+
+
